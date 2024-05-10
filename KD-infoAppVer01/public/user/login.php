@@ -18,7 +18,7 @@
         }
 
         .container {
-            text-align: center;
+            text-align: center
         }
 
         .title {
@@ -103,8 +103,14 @@
             <span class="close" onclick="closeModal('loginModal')">&times;</span>
             <!-- PHPコード -->
             <?php
-            // セッション開始
             session_start();
+
+            // もし既にログインしている場合、ポップアップを表示して終了
+            if (isset($_SESSION['username'])) {
+                echo "<script>alert('既にログインしています'); window.location.href='home.php';</script>";
+                exit();
+            }
+
             // POSTリクエストがあるかどうかをチェック
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // データベース接続情報
@@ -114,8 +120,8 @@
                 $dbname = "prosite"; // データベース名
 
                 // ユーザーからの入力を取得
-                $input_username = $_POST["username"];
-                $input_password = $_POST["password"];
+                $input_username = $_POST["user_name"];
+                $input_password = $_POST["user_pass"];
 
                 try {
                     // データベースに接続
@@ -146,15 +152,16 @@
                 }
             }
             ?>
+
             <!-- ログインフォーム -->
             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                 <div class="input-field">
-                    <label for="username">名前:</label>
-                    <input type="text" id="username" name="username" required>
+                    <label for="username">ユーザー名:</label>
+                    <input type="text" id="username" name="user_name" required>
                 </div>
                 <div class="input-field">
                     <label for="password">パスワード:</label>
-                    <input type="password" id="password" name="password" required>
+                    <input type="password" id="password" name="user_pass" required>
                 </div>
                 <button type="submit" class="button">ログイン</button>
             </form>
