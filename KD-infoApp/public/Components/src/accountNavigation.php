@@ -3,9 +3,7 @@
     <!-- <button id="account-btn" class="fas fa-user"> -->
     <!-- <button id="account-btn" class="fas fa-user-graduate"> -->
     <!-- <button id="account-btn" class="fas fa-user-tie"> -->
-    <button id="account-btn"
-        class="fas fa-user-circle pl-2 pr-2"
-        style="color: white; font-size: 24px;">
+    <button id="account-btn" class="fas fa-user-circle pl-2 pr-2" style="color: white; font-size: 24px;">
     </button>
     <!-- アカウントメニュー -->
     <div id="account-menu" class="hidden absolute right-0 w-48 border border-gray-400 rounded-lg text-left" style="background-color: #111;">
@@ -18,7 +16,7 @@
             <a href="../myProfile/index.php" class="block p-0.5 pl-2 text-lg text-left hover hover:bg-gray-900">My Profile</a>
             <a href="../setting/index.php" class="block p-0.5 pl-2 text-lg text-left hover hover:bg-gray-900">Settings</a>
             <hr class="border-gray-400 mx-auto" style="width: 180px;">
-            <a href="#" id="logout-btn" class="block p-2 pt-1 text-lg text-left hover hover:bg-red-600">Logout</a>
+            <button id="logout-btn" class="block p-2 pt-1 text-lg text-left hover hover:bg-red-600">Logout</button>
         <?php else : ?>
             <!-- ゲスト時のメニュー項目 -->
             <div class="p-2 text-left">
@@ -27,6 +25,11 @@
         <?php endif; ?>
     </div>
 </div>
+
+<!-- ログアウト用フォーム -->
+<form id="logout-form" action="../user/logout.php" method="post" class="hidden">
+    <input type="hidden" name="logout" value="true">
+</form>
 
 <!-- ログアウト用モーダル -->
 <div id="logout-modal" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-900 flex justify-center items-center hidden">
@@ -67,7 +70,8 @@
 
         // モーダル内のYesボタンをクリックした時にログアウト処理を行う
         document.getElementById('logout-confirm').addEventListener('click', function() {
-            window.location.href = '../user/logout.php';
+            // フォームをサブミットする
+            document.getElementById('logout-form').submit();
         });
     <?php endif; ?>
 </script>
