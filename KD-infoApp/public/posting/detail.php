@@ -2,13 +2,15 @@
 <html lang="ja">
 
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>投稿詳細</title>
+    <title>Posts Details KD-info</title>
     <!-- TailwindCSSに必要なリンク -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <!-- Font Awesome CSSを追加 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- タブのアイコン設定(相対パスは非表示になるバグがあるので絶対パスで指定中) -->
+    <link rel="icon" type="image/png" href="\PBI1-B-Humble\KD-infoApp\public\Components\static\AppIcon\KD-info2.png">
     <style>
         body {
             background-color: #111;
@@ -107,9 +109,15 @@
     </style>
 </head>
 
+<?php
+// ヘッダーのインポート
+include '../Components/src/renderHeader.php';
+renderHeader('question');
+?>
+
 <body>
     <div class="max-w-5xl mx-auto pt-5 px-4">
-        <h2 class="text-white text-xl">投稿詳細</h2>
+        <h2 class="text-white text-xl pb-4">投稿詳細</h2>
         <?php
         // データベース接続
         $servername = "localhost";
