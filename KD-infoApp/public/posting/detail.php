@@ -5,24 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>投稿詳細</title>
+    <!-- TailwindCSSに必要なリンク -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Font Awesome CSSを追加 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* ボタンのスタイル */
-        .returnButton {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+        body {
+            background-color: #111;
         }
 
+        .returnButton,
         .replyButton {
             position: fixed;
             bottom: 20px;
-            left: 20px;
             padding: 10px 20px;
             background-color: #007bff;
             color: #fff;
@@ -31,9 +26,12 @@
             cursor: pointer;
         }
 
-        .averageRating {
-            color: red;
-            font-weight: bold;
+        .returnButton {
+            right: 20px;
+        }
+
+        .replyButton {
+            left: 20px;
         }
 
         .replyForm {
@@ -70,10 +68,6 @@
             background-color: #dc3545;
         }
 
-        .replyList {
-            margin-top: 20px;
-        }
-
         .replyList ul {
             list-style-type: none;
             padding: 0;
@@ -84,10 +78,6 @@
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
-        }
-
-        .deleteButton {
-            background-color: red;
         }
 
         .code-container {
@@ -118,86 +108,90 @@
 </head>
 
 <body>
-    <h1>投稿詳細</h1>
-    <?php
-    // データベース接続
-    $servername = "localhost";
-    $username = "username";
-    $password = "password";
-    $dbname = "projectDB";
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    <div class="max-w-5xl mx-auto pt-5 px-4">
+        <h2 class="text-white text-xl">投稿詳細</h2>
+        <?php
+        // データベース接続
+        $servername = "localhost";
+        $username = "username";
+        $password = "password";
+        $dbname = "projectDB";
+        $conn = new mysqli($servername, $username, $password, $dbname);
 
-    // 接続エラーの確認
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    // URLパラメータから投稿IDを取得
-    $id = $_GET['id'];
-
-    // 該当の投稿をデータベースから取得
-    $sql = "SELECT * FROM projects WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result === false || $result->num_rows === 0) {
-        echo "投稿が見つかりませんでした";
-    } else {
-        $row = $result->fetch_assoc();
-        echo "<h1>" . $row["title"] . "</h1>";
-        echo "<p>投稿日時: " . $row["created_at"] . "</p>";
-        echo "<div class='code-container'>";
-        echo "<div class='code-language'>" . htmlspecialchars($row["language"]) . "</div>";
-        echo "<div class='code-content'><pre>" . htmlspecialchars($row["code"]) . "</pre></div>";
-        echo "</div>";
-        echo "<p>作品の説明:</p>";
-        echo "<p>" . htmlspecialchars($row["description"]) . "</p>";
-
-        echo '<div>評価: ';
-        for ($i = 1; $i <= 5; $i++) {
-            echo "<label><input type='radio' name='rating' value='$i'/> $i </label>";
+        // 接続エラーの確認
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
         }
-        echo '<button onclick="submitRating()">評価送信</button>';
-        echo '</div>';
 
-        // 返信一覧を取得して表示
-        $sql = "SELECT * FROM replies WHERE project_id = ?";
+        // URLパラメータから投稿IDを取得
+        $id = $_GET['id'];
+
+        // 該当の投稿をデータベースから取得
+        $sql = "SELECT * FROM projects WHERE id = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $id);
         $stmt->execute();
-        $replies = $stmt->get_result();
+        $result = $stmt->get_result();
 
-        echo "<div class='replyList'>";
-        if ($replies->num_rows > 0) {
-            echo "<h2>返信一覧</h2>";
-            echo "<ul>";
-            while ($reply = $replies->fetch_assoc()) {
-                echo "<li>" . $reply["content"] . " <button class='deleteButton' onclick='deleteReply(" . $reply["id"] . ")'>削除</button></li>";
-            }
-            echo "</ul>";
+        if ($result === false || $result->num_rows === 0) {
+            echo "<p class='text-white'>投稿が見つかりませんでした</p>";
         } else {
-            echo "<p>返信はありません</p>";
+            $row = $result->fetch_assoc();
+            echo "<div class='bg-gray-800 p-5 rounded-md shadow'>";
+            echo "<h1 class='text-2xl font-bold text-white mb-2'>" . htmlspecialchars($row["title"]) . "</h1>";
+            echo "<p class='text-sm text-gray-500'>投稿日時: " . htmlspecialchars($row["created_at"]) . "</p>";
+            echo "<div class='code-container'>";
+            echo "<div class='code-language'>" . htmlspecialchars($row["language"]) . "</div>";
+            echo "<div class='code-content'><pre>" . htmlspecialchars($row["code"]) . "</pre></div>";
+            echo "</div>";
+            echo "<p class='text-white'>作品の説明:</p>";
+            echo "<p class='text-white'>" . htmlspecialchars($row["description"]) . "</p>";
+
+            echo '<div class="text-white">評価: ';
+            for ($i = 1; $i <= 5; $i++) {
+                echo "<label><input type='radio' name='rating' value='$i'/> $i </label>";
+            }
+            echo '<button onclick="submitRating()" class="ml-2 bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded">評価送信</button>';
+            echo '</div>';
+
+            // 返信一覧を取得して表示
+            $sql = "SELECT * FROM replies WHERE project_id = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $replies = $stmt->get_result();
+
+            echo "<div class='replyList'>";
+            if ($replies->num_rows > 0) {
+                echo "<h2 class='text-white text-xl mt-4'>返信一覧</h2>";
+                echo "<ul>";
+                while ($reply = $replies->fetch_assoc()) {
+                    echo "<li class='bg-gray-800 text-white p-4 rounded mb-3 shadow'>" . htmlspecialchars($reply["content"]) . " <button class='ml-2 bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded' onclick='deleteReply(" . $reply["id"] . ")'>削除</button></li>";
+                }
+                echo "</ul>";
+            } else {
+                echo "<p class='text-white'>返信はありません</p>";
+            }
+            echo "</div>";
+            echo "</div>";
         }
-        echo "</div>";
-    }
 
-    $conn->close();
-    ?>
+        $conn->close();
+        ?>
 
-    <!-- ホームに戻るボタン -->
-    <button class="returnButton" onclick="returnHome()">ホームに戻る</button>
+        <!-- ホームに戻るボタン -->
+        <button class="returnButton" onclick="returnHome()">ホームに戻る</button>
 
-    <!-- 返信フォーム -->
-    <div class="replyForm" id="replyForm">
-        <textarea id="replyContent" placeholder="返信内容を入力してください"></textarea>
-        <button onclick="submitReply()">返信する</button>
-        <button class="cancelButton" onclick="closeReplyForm()">キャンセル</button>
+        <!-- 返信フォーム -->
+        <div class="replyForm" id="replyForm">
+            <textarea id="replyContent" placeholder="返信内容を入力してください"></textarea>
+            <button onclick="submitReply()">返信する</button>
+            <button class="cancelButton" onclick="closeReplyForm()">キャンセル</button>
+        </div>
+
+        <!-- 返信ボタン -->
+        <button class="replyButton" onclick="openReplyForm()">返信する</button>
     </div>
-
-    <!-- 返信ボタン -->
-    <button class="replyButton" onclick="openReplyForm()">返信する</button>
 
     <!-- JavaScript -->
     <script>

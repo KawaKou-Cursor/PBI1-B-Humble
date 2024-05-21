@@ -18,7 +18,7 @@
             <a href="../myProfile/index.php" class="block p-0.5 pl-2 text-lg text-left hover hover:bg-gray-900">My Profile</a>
             <a href="../setting/index.php" class="block p-0.5 pl-2 text-lg text-left hover hover:bg-gray-900">Settings</a>
             <hr class="border-gray-400 mx-auto" style="width: 180px;">
-            <a href="#" id="logout-btn" class="block p-2 pt-1 text-lg text-left hover hover:bg-red-600">Logout</a>
+            <a href="#" id="logout-btn" class="block p-2 pt-1 text-lg text-left hover hover:bg-red-900">Logout</a>
         <?php else : ?>
             <!-- ゲスト時のメニュー項目 -->
             <div class="p-2 text-left">

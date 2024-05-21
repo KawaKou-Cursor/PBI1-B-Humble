@@ -31,12 +31,12 @@ function renderHeader()
             <div class="flex items-center">
                 <a class="pl-20 pr-3"> </a>
                 <!-- 投稿に飛ぶボタン -->
-                <a href="../posting/index.php" class="bg-black border border-white rounded text-white pl-3 pr-3 pt-1 pb-1 hover:bg-gray-900 ml-10 mr-0">
+                <a href="../posting/index.php" class="bg-black border border-white rounded text-white pl-3 pr-3 pt-1 pb-1 hover:bg-white hover:text-black ml-10 mr-0">
                     投稿
                 </a>
 
                 <!-- 質問に飛ぶボタン -->
-                <a href="../question/index.php" class="bg-black border border-white rounded text-white pl-3 pr-3 pt-1 pb-1 hover:bg-gray-900 ml-5 mr-0">
+                <a href="../question/index.php" class="bg-black border border-white rounded text-white pl-3 pr-3 pt-1 pb-1 hover:bg-white hover:text-black ml-5 mr-0">
                     質問
                 </a>
             </div>
