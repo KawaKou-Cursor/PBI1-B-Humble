@@ -17,7 +17,7 @@
 
     include '../Components/src/renderHeader.php';
     renderHeader('question');
-
+    
     // 通知プロセス関連のなんか
     // $loginSuccess = isset($_SESSION['login_success']) ? $_SESSION['login_success'] : false;
     // if ($loginSuccess) {
@@ -61,13 +61,13 @@
             <i class="fa fa-plus"></i>
         </a>
     </div>
-    <!-- 通知プロセス -->
+        <!-- 通知プロセス -->
     <!-- <?php if ($loginSuccess): ?>
         <div id="login-notification" class="notification fixed top-0 left-1/2 transform -translate-x-1/2 p-4 bg-gray-900 text-white flex flex-col items-center justify-center rounded-lg shadow-lg animate-slide-down max-w-lg w-full">
             <span class="text-lg">ログインしました</span>
             <button id="notification-close" class="mt-4 bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-6 rounded">OK</button>
         </div>
-    <?php endif; ?> -->
+        <?php endif; ?> -->
 
     <script>
         function filterQuestions() {
@@ -84,7 +84,7 @@
                 }
             });
         }
-
+        
         // 通知OKボタンクリックと時間経過で発生するイベント
         // document.addEventListener('DOMContentLoaded', (event) => {
         //     if (document.getElementById('login-notification')) {
@@ -96,6 +96,11 @@
         //         }, 3000);
         //     }
         // });
+        // 質問投稿成功時のダイアログ表示
+        <?php if (isset($_SESSION["question_post_success"])): ?>
+            alert("質問を投稿しました");
+            <?php unset($_SESSION["question_post_success"]); // フラグをリセット ?>
+        <?php endif; ?>
     </script>
 </body>
 </html>
