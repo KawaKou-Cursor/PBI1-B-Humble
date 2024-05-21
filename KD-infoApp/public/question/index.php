@@ -9,35 +9,20 @@
     <link rel="icon" type="image/png" href="\PBI1-B-Humble\KD-infoApp\public\Components\static\AppIcon\KD-info2.png">
     <style>
         body { background-color: #111; }
-        .notification {
-            max-width: 600px; /* 通知の最大幅を600pxに設定 */
-            padding: 16px; /* 通知のパディングを調整 */
-        }
-        @keyframes slide-down {
-            0% {
-                transform: translate(-50%, -100%);
-                opacity: 0;
-            }
-            100% {
-                transform: translate(-50%, 0);
-                opacity: 1;
-            }
-        }
-        .animate-slide-down {
-            animation: slide-down 0.5s ease-out;
-        }
     </style>
 </head>
 <body>
     <?php
+    session_start();
+
     include '../Components/src/renderHeader.php';
     renderHeader('question');
 
-    session_start();
-    $loginSuccess = isset($_SESSION['login_success']) ? $_SESSION['login_success'] : false;
-    if ($loginSuccess) {
-        unset($_SESSION['login_success']); // 通知後にセッション変数をクリア
-    }
+    // 通知プロセス関連のなんか
+    // $loginSuccess = isset($_SESSION['login_success']) ? $_SESSION['login_success'] : false;
+    // if ($loginSuccess) {
+    //     unset($_SESSION['login_success']); // 通知後にセッション変数をクリア
+    // }
 
     // DB接続
     $dbname = "prosite";
@@ -76,12 +61,14 @@
             <i class="fa fa-plus"></i>
         </a>
     </div>
-    <?php if ($loginSuccess): ?>
+    <!-- 通知プロセス -->
+    <!-- <?php if ($loginSuccess): ?>
         <div id="login-notification" class="notification fixed top-0 left-1/2 transform -translate-x-1/2 p-4 bg-gray-900 text-white flex flex-col items-center justify-center rounded-lg shadow-lg animate-slide-down max-w-lg w-full">
             <span class="text-lg">ログインしました</span>
             <button id="notification-close" class="mt-4 bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-6 rounded">OK</button>
         </div>
-    <?php endif; ?>
+    <?php endif; ?> -->
+
     <script>
         function filterQuestions() {
             let input = document.getElementById('searchInput').value.toLowerCase();
@@ -98,16 +85,17 @@
             });
         }
 
-        document.addEventListener('DOMContentLoaded', (event) => {
-            if (document.getElementById('login-notification')) {
-                document.getElementById('notification-close').addEventListener('click', () => {
-                    document.getElementById('login-notification').remove();
-                });
-                setTimeout(() => {
-                    document.getElementById('login-notification').remove();
-                }, 3000);
-            }
-        });
+        // 通知OKボタンクリックと時間経過で発生するイベント
+        // document.addEventListener('DOMContentLoaded', (event) => {
+        //     if (document.getElementById('login-notification')) {
+        //         document.getElementById('notification-close').addEventListener('click', () => {
+        //             document.getElementById('login-notification').remove();
+        //         });
+        //         setTimeout(() => {
+        //             document.getElementById('login-notification').remove();
+        //         }, 3000);
+        //     }
+        // });
     </script>
 </body>
 </html>
