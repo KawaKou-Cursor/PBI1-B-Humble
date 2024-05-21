@@ -1,3 +1,5 @@
+<!-- メモ用のファイルです -->
+
 <!DOCTYPE html>
 <html lang="ja">
 

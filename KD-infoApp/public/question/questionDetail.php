@@ -121,7 +121,8 @@ renderHeader('question');
             <!-- 質問者表示とそのユーザーのプロフィールに遷移するボタン表示 -->
             <div>
                 <div class="text-sm text-gray-500">質問者:
-                    <a href="userProfile.php?user_id=<?php echo $question['user_id']; ?>" class="text-blue-500 hover:text-blue-700"><?php echo htmlspecialchars($question['user_name']); ?></a>
+                    <a href="\PBI1-B-Humble\KD-infoApp\development\kawando\otherProfile.php?user_id=<?php echo $question['user_id']; ?>" class="text-blue-500 hover:text-blue-700"><?php echo htmlspecialchars($question['user_name']); ?></a>
+                    <!-- <a href="userProfile.php?user_id=<?php echo $question['user_id']; ?>" class="text-blue-500 hover:text-blue-700"><?php echo htmlspecialchars($question['user_name']); ?></a> -->
                 </div>
             </div>
             <div class="flex justify-between items-center text-sm text-gray-500">
