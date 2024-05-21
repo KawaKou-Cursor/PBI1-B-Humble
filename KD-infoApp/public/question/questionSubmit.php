@@ -39,6 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bindParam(':text', $text);
         $stmt->execute();
 
+        $_SESSION["question_post_success"] = true; // 質問投稿成功のフラグを設定
         header("Location: index.php"); // 投稿後は質問一覧ページへリダイレクト
         exit;
     } else {
