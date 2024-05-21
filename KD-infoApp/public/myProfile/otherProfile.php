@@ -37,17 +37,25 @@
         }
 
         .profile-name {
-            font-size: 28px;
+            font-size: 30px;
             font-weight: bold;
             text-align: center;
             margin-bottom: 15px;
             color: #4CAF50;
         }
 
-        .profile-details p {
+        .profile-title {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .profile-details {
             font-size: 18px;
             margin-bottom: 10px;
             line-height: 1.6;
+            text-align: center;
         }
 
         .section {
