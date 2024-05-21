@@ -40,30 +40,12 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- テーブルの構造 `posts`
---
-
-CREATE TABLE `posts` (
-  `post_id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `post_title` varchar(100) NOT NULL,
-  `post_text` varchar(1000) NOT NULL,
-  `post_good` int(3) DEFAULT NULL,
-  `post_code` text DEFAULT NULL,
-  `post_image_name` varchar(100) DEFAULT NULL,
-  `post_image` mediumblob DEFAULT NULL,
-  `post_time` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- テーブルの構造 `projects`
 --
 
 CREATE TABLE `projects` (
   `id` int(11) NOT NULL,
-  'user_id' int NOT NULL,
+  `user_id` int NOT NULL,
   `title` varchar(255) NOT NULL,
   `code` text NOT NULL,
   `description` text NOT NULL,
@@ -77,7 +59,7 @@ CREATE TABLE `projects` (
 -- テーブルのデータのダンプ `projects`
 --
 
-INSERT INTO `projects` (`id`, 'user_id', `title`, `code`, `description`, `language`, `image_name`, `created_at`, `image`) VALUES
+INSERT INTO `projects` (`id`, `user_id`, `title`, `code`, `description`, `language`, `image_name`, `created_at`, `image`) VALUES
 (68, '1', '計算機プログラム', '#include <stdio.h>\r\n\r\nint main() {\r\n    char operator;\r\n    double num1, num2, result;\r\n\r\n    printf(\"演算子を入力してください(+, -, *, /): \");\r\n    scanf(\"%c\", &operator);\r\n\r\n    printf(\"2つの数値を入力してください: \");\r\n    scanf(\"%lf %lf\", &num1, &num2);\r\n\r\n    switch(operator) {\r\n        case \'+\':\r\n            result = num1 + num2;\r\n            break;\r\n        case \'-\':\r\n            result = num1 - num2;\r\n            break;\r\n        case \'*\':\r\n            result = num1 * num2;\r\n            break;\r\n        case \'/\':\r\n            if (num2 != 0) {\r\n                result = num1 / num2;\r\n            } else {\r\n                printf(\"エラー: 0で割ることはできません。\\n\");\r\n                return 1; // エラーコード1を返してプログラムを終了\r\n            }\r\n            break;\r\n        default:\r\n            printf(\"無効な演算子です。\\n\");\r\n            return 1; // エラーコード1を返してプログラムを終了\r\n    }\r\n\r\n    printf(\"結果: %lf\\n\", result);\r\n    \r\n    return 0; // プログラムの正常終了\r\n}\r\n', 'このプログラムは、ユーザーに演算子（+、-、*、/）を入力し、その後に2つの数値を入力してもらいます。次に、指定された演算を実行して結果を表示します。0で割るエラーが発生した場合はエラーメッセージを表示し、プログラムを終了します。', 'C', '', '2024-05-13 02:20:21', NULL),
 (69, '1', '簡単なユーザー入力を扱うプログラム', 'import java.util.Scanner;\r\n\r\npublic class Calculator {\r\n    public static void main(String[] args) {\r\n        Scanner scanner = new Scanner(System.in);\r\n\r\n        System.out.print(\"演算子を入力してください(+, -, *, /): \");\r\n        char operator = scanner.next().charAt(0);\r\n\r\n        System.out.print(\"2つの数値を入力してください: \");\r\n        double num1 = scanner.nextDouble();\r\n        double num2 = scanner.nextDouble();\r\n\r\n        double result = 0.0;\r\n\r\n        switch (operator) {\r\n            case \'+\':\r\n                result = num1 + num2;\r\n                break;\r\n            case \'-\':\r\n                result = num1 - num2;\r\n                break;\r\n            case \'*\':\r\n                result = num1 * num2;\r\n                break;\r\n            case \'/\':\r\n                if (num2 != 0) {\r\n                    result = num1 / num2;\r\n                } else {\r\n                    System.out.println(\"エラー: 0で割ることはできません。\");\r\n                    return; // プログラムを終了\r\n                }\r\n                break;\r\n            default:\r\n                System.out.println(\"無効な演算子です。\");\r\n                return; // プログラムを終了\r\n        }\r\n\r\n        System.out.println(\"結果: \" + result);\r\n    }\r\n}\r\n', 'このプログラムは、ユーザーに演算子（+、-、*、/）を入力し、その後に2つの数値を入力してもらいます。次に、指定された演算を実行して結果を表示します。0で割るエラーが発生した場合はエラーメッセージを表示し、プログラムを終了します。', 'Java', '', '2024-05-13 02:22:11', NULL),
 (70, '2', '四則演算を行うプログラム', 'def calculator():\r\n    operator = input(\"演算子を入力してください(+, -, *, /): \")\r\n    num1 = float(input(\"1つ目の数値を入力してください: \"))\r\n    num2 = float(input(\"2つ目の数値を入力してください: \"))\r\n\r\n    if operator == \'+\':\r\n        result = num1 + num2\r\n    elif operator == \'-\':\r\n        result = num1 - num2\r\n    elif operator == \'*\':\r\n        result = num1 * num2\r\n    elif operator == \'/\':\r\n        if num2 != 0:\r\n            result = num1 / num2\r\n        else:\r\n            print(\"エラー: 0で割ることはできません。\")\r\n            return  # プログラムを終了\r\n    else:\r\n        print(\"無効な演算子です。\")\r\n        return  # プログラムを終了\r\n\r\n    print(\"結果:\", result)\r\n\r\ncalculator()\r\n', 'このプログラムは、ユーザーに演算子（+、-、*、/）を入力し、その後に2つの数値を入力してもらいます。次に、指定された演算を実行して結果を表示します。0で割るエラーが発生した場合はエラーメッセージを表示し、プログラムを終了します。', 'Python', '', '2024-05-13 02:23:11', NULL),
@@ -142,12 +124,6 @@ INSERT INTO `replies` (`id`, `project_id`, `content`, `created_at`) VALUES
 -- ダンプしたテーブルのインデックス
 --
 
---
--- テーブルのインデックス `posts`
---
-ALTER TABLE `posts`
-  ADD PRIMARY KEY (`post_id`),
-
 
 --
 -- テーブルのインデックス `projects`
@@ -176,11 +152,6 @@ ALTER TABLE `replies`
 -- ダンプしたテーブルの AUTO_INCREMENT
 --
 
---
--- テーブルの AUTO_INCREMENT `posts`
---
-ALTER TABLE `posts`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- テーブルの AUTO_INCREMENT `projects`
@@ -206,12 +177,6 @@ ALTER TABLE `replies`
 --
 -- ダンプしたテーブルの制約
 --
-
---
--- テーブルの制約 `posts`
---
-ALTER TABLE `posts`
-  ADD CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 
 
