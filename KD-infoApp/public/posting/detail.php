@@ -2,7 +2,7 @@
 <html lang="ja">
 
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Posts Details KD-info</title>
     <!-- TailwindCSSに必要なリンク -->
@@ -147,7 +147,10 @@ renderHeader('question');
             $row = $result->fetch_assoc();
             echo "<div class='bg-gray-800 p-5 rounded-md shadow'>";
             echo "<h1 class='text-2xl font-bold text-white mb-2'>" . htmlspecialchars($row["title"]) . "</h1>";
-            echo "<p class='text-sm text-gray-500'>投稿日時: " . htmlspecialchars($row["created_at"]) . "</p>";
+            echo "<p class='text-sm text-gray-500'>投稿日時: " . date('Y-m-d', strtotime($row["created_at"])) . "<p>";
+            // if ($row["average_rating"] !== null) {
+            //     echo "評価: " . number_format($row["average_rating"], 1) . " / 5.0 <br>";
+            // }
             echo "<div class='code-container'>";
             echo "<div class='code-language'>" . htmlspecialchars($row["language"]) . "</div>";
             echo "<div class='code-content'><pre>" . htmlspecialchars($row["code"]) . "</pre></div>";

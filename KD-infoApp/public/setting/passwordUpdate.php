@@ -52,6 +52,8 @@
 
 <body>
     <?php
+    // 出力バッファリングを開始
+    ob_start();
     // セッションの開始とヘッダーのインポート
     session_start();
     include '..\Components\src\renderHeader.php';
