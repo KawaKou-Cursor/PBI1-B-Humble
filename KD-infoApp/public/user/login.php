@@ -82,6 +82,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 toggleIcon.classList.remove('fa-eye');
             }
         }
+        // 新規登録のダイアログ表示
+        <?php if (isset($_SESSION["signup_success"])): ?>
+            alert("<?php echo $_SESSION["signup_success"]; unset($_SESSION["signup_success"]); ?>");
+        <?php endif; ?>
     </script>
 </body>
 </html>

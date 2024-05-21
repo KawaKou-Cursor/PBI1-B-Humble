@@ -80,7 +80,7 @@
                             $stmt->bindParam(':email', $input_email);
                             $stmt->execute();
                             session_start();
-                            $_SESSION['signup_success'] = "サインアップが完了しました。ログインしてください。";
+                            $_SESSION['signup_success'] = "新規登録が完了しました。ログインしてください。";
                             header("Location: login.php");
                             exit();
                         }
