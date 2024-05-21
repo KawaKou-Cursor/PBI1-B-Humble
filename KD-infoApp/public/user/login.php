@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($result && password_verify($input_password, $result['user_pass'])) {
             $_SESSION["session_user_name"] = $input_user_name; // セッション変数を設定
             $_SESSION["login_success"] = true; // ログイン成功のフラグを設定
-            header("Location: ../question/index.php"); // index.php へリダイレクト
+            header("Location: ../posting/index.php"); // index.php へリダイレクト
             exit();
         } else {
             $errorMessage = 'ユーザー名またはパスワードが違います';

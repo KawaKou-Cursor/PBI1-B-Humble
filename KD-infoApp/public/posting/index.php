@@ -272,8 +272,13 @@ renderHeader('question');
                 }
             }
         }
+
+        // ログイン成功時のダイアログ表示
+        <?php if (isset($_SESSION["login_success"]) && $_SESSION["login_success"]): ?>
+        alert("ログインに成功しました");
+        <?php unset($_SESSION["login_success"]); ?>
+        <?php endif; ?>
     </script>
 </body>
-
 
 </html>
