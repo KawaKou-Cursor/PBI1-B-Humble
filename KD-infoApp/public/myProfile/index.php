@@ -144,45 +144,115 @@
       <p>自己紹介：こんにちは、山田太郎です。プログラミングと旅行が大好きで、特にウェブ開発と人工知能に興味があります。</p>
     </div>
 
-    <div class="section">
-      <div class="section-title">作品投稿一覧</div>
-      <div class="section-text">自分が作成した作品の投稿一覧です。</div>
-      <div class="list-container">
-        <ul class="works-list">
-          <li>
-            <a href="#"><i class="fas fa-globe"></i> ウェブサイト「サンプルサイト1」</a>
-            <span class="work-date">投稿日：2024-04-01</span>
-          </li>
-          <li>
-            <a href="#"><i class="fas fa-mobile-alt"></i> ウェブアプリ「サンプルアプリ2」</a>
-            <span class="work-date">投稿日：2024-04-10</span>
-          </li>
-          <li>
-            <a href="#"><i class="fas fa-brain"></i> 機械学習モデル「サンプルモデル3」</a>
-            <span class="work-date">投稿日：2024-04-15</span>
-          </li>
-        </ul>
-      </div>
-    </div>
+    <?php
+// 投稿一覧のデータベース接続情報
+$post_servername = "localhost";
+$post_username = "username";
+$post_password = "password";
+$post_dbname = "projectDB";
 
-    <div class="section">
-      <div class="section-title">いいねがもらえた質問、回答</div>
-      <div class="section-text">他のユーザーから「いいね」をもらった質問や回答の一覧です。</div>
-      <div class="list-container">
-        <ul class="likes-list">
-          <li>
-            <a href="#"><i class="fas fa-question-circle"></i> 質問「サンプル質問A」</a>
-            <span class="like-count"><i class="fas fa-heart"></i> 20</span>
-            <span class="date">2024-04-05</span>
-          </li>
-          <li>
-            <a href="#"><i class="fas fa-reply"></i> 回答「サンプル回答B」</a>
-            <span class="like-count"><i class="fas fa-heart"></i> 15</span>
-            <span class="date">2024-04-12</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</body>
-</html>
+// 回答一覧のデータベース接続情報
+$answer_servername = "localhost";
+$answer_username = "kobe";
+$answer_password = "denshi";
+$answer_dbname = "prosite";
+
+// 投稿一覧のデータベースに接続
+$post_conn = new mysqli($post_servername, $post_username, $post_password, $post_dbname);
+
+// 接続をチェック
+if ($post_conn->connect_error) {
+    die("データベースへの接続失敗: " . $post_conn->connect_error);
+}
+
+echo "<div class='section'>";
+echo "<div class='section-title'>作品投稿一覧</div>";
+echo "<div class='section-text'>自分が作成した作品の投稿一覧です。</div>";
+echo "<div class='list-container'>";
+echo "<ul class='works-list'>";
+
+// projectDBからデータを取得
+$sql = "SELECT id, title, created_at FROM projects";
+$result = $post_conn->query($sql);
+
+if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      echo "<li>";
+      echo "<a href='#'><i class='fas fa-globe'></i> " . htmlspecialchars($row["title"]) . "</a>";
+      echo "<span class='work-date'>投稿日：" . htmlspecialchars($row["created_at"]) . "</span>";
+      echo "<a href='delete.php?id=" . $row['id'] . "' onclick=\"return confirm('本当にこの投稿を削除しますか？');\">削除</a>";
+      echo "</li>";
+    }
+} else {
+    echo "<li>投稿がありません。</li>";
+}
+
+echo "</ul>";
+echo "</div>";
+echo "</div>";
+
+// 投稿一覧の接続を閉じる
+$post_conn->close();
+
+// 回答一覧のデータベースに接続
+$answer_conn = new mysqli($answer_servername, $answer_username, $answer_password, $answer_dbname);
+
+// 接続をチェック
+if ($answer_conn->connect_error) {
+    die("データベースへの接続失敗: " . $answer_conn->connect_error);
+}
+
+echo "<div class='section'>";
+echo "<div class='section-title'>いいねがもらえた質問</div>";
+echo "<div class='section-text'>他のユーザーから「いいね」をもらった質問や回答の一覧です。</div>";
+echo "<div class='list-container'>";
+echo "<ul class='likes-list'>";
+
+// questionsテーブルからデータを取得（question_goodが1以上のもの）
+$sql = "SELECT question_id, question_title, question_time, question_good FROM questions WHERE question_good >= 1";
+
+$result = $answer_conn->query($sql);
+
+if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        echo "<li>";
+        echo "<a href='#'><i class='fas fa-question-circle'></i> " . htmlspecialchars($row["question_title"]) . "</a>";
+        echo "<span class='like-count'><i class='fas fa-heart'></i> " . htmlspecialchars($row["question_good"]) . "</span>";
+        echo "<span class='date'>" . htmlspecialchars($row["question_time"]) . "</span>";
+        echo "<a href='delete_question.php?id=" . $row['question_id'] . "' onclick=\"return confirm('本当にこの質問を削除しますか？');\">削除</a>";
+        echo "</li>";
+    }
+} else {
+    echo "<li>質問がありません。</li>";
+}
+
+echo "</ul>";
+echo "</div>";
+echo "</div>";
+
+echo "<div class='section'>";
+echo "<div class='section-title'>回答一覧</div>";
+echo "<div class='section-text'>質問に対する回答の一覧です。</div>";
+echo "<div class='list-container'>";
+echo "<ul class='replies-list'>";
+
+// repliesテーブルからデータを取得
+$sql = "SELECT reply_id, reply_text, reply_time FROM replies";
+
+$result = $answer_conn->query($sql);
+
+if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        echo "<li>";
+        echo "<p>" . htmlspecialchars($row["reply_text"]) . "</p>";
+        echo "<span class='date'>" . htmlspecialchars($row["reply_time"]) . "</span>";
+        echo "<a href='delete_reply.php?id=" . $row['reply_id'] . "' onclick=\"return confirm('本当にこの回答を削除しますか？');\">削除</a>";
+        echo "</li>";
+    }
+} else {
+    echo "<li>回答がありません。</li>";
+}
+
+echo "</ul>";
+echo "</div>";
+echo "</div>";
