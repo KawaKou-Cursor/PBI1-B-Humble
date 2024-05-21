@@ -1,50 +1,61 @@
-<?php
-session_start();
-
-// DB connect
-$dbname = "prosite";
-$servername = "localhost";
-$username = "kobe";
-$password = "denshi";
-
-$conn = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
-$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-// Fetch questions based on sort order
-$sort_order = $_GET['sort'] ?? 'newest'; // Default to newest if not specified
-$sort_query = $sort_order === 'newest' ? "ORDER BY question_time DESC" : ($sort_order === 'oldest' ? "ORDER BY question_time ASC" : "ORDER BY question_good DESC");
-
-$stmt = $conn->prepare("SELECT q.*, COUNT(r.reply_id) AS comment_count FROM questions q LEFT JOIN replies r ON q.question_id = r.question_id GROUP BY q.question_id $sort_query");
-$stmt->execute();
-$questions = $stmt->fetchAll();
-
-?>
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- タブのタイトル -->
-    <title>Questions KD-info</title>
-    <!-- TailwindCSSに必要なリンク -->
+    <title>質問一覧 - KD-info</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <!-- Font Awesome CSSを追加 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- タブのアイコン設定(相対パスは非表示になるバグがあるので絶対パスで指定中) -->
     <link rel="icon" type="image/png" href="\PBI1-B-Humble\KD-infoApp\public\Components\static\AppIcon\KD-info2.png">
     <style>
         body { background-color: #111; }
+        .notification {
+            max-width: 600px; /* 通知の最大幅を600pxに設定 */
+            padding: 16px; /* 通知のパディングを調整 */
+        }
+        @keyframes slide-down {
+            0% {
+                transform: translate(-50%, -100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translate(-50%, 0);
+                opacity: 1;
+            }
+        }
+        .animate-slide-down {
+            animation: slide-down 0.5s ease-out;
+        }
     </style>
 </head>
-
-<?php
-    // ヘッダーのインポート
+<body>
+    <?php
     include '../Components/src/renderHeader.php';
     renderHeader('question');
-?>
 
-<body>
+    session_start();
+    $loginSuccess = isset($_SESSION['login_success']) ? $_SESSION['login_success'] : false;
+    if ($loginSuccess) {
+        unset($_SESSION['login_success']); // 通知後にセッション変数をクリア
+    }
+
+    // DB接続
+    $dbname = "prosite";
+    $servername = "localhost";
+    $username = "kobe";
+    $password = "denshi";
+
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // ソート順に基づいて質問を取得
+    $sort_order = $_GET['sort'] ?? 'newest'; // 指定がない場合は最新順
+    $sort_query = $sort_order === 'newest' ? "ORDER BY question_time DESC" : ($sort_order === 'oldest' ? "ORDER BY question_time ASC" : "ORDER BY question_good DESC");
+
+    $stmt = $conn->prepare("SELECT q.*, COUNT(r.reply_id) AS comment_count FROM questions q LEFT JOIN replies r ON q.question_id = r.question_id GROUP BY q.question_id $sort_query");
+    $stmt->execute();
+    $questions = $stmt->fetchAll();
+    ?>
     <div class="container mx-auto pt-5 pl-40 pr-40">
         <div id="searchBar" class="flex justify-center pb-1">
             <input type="text" id="searchInput" placeholder="質問を検索..." oninput="filterQuestions()" class="form-input block w-full px-4 py-2 text-black bg-gray-800 text-gray-300 border-gray-700 focus:border-gray-500 rounded">
@@ -52,7 +63,7 @@ $questions = $stmt->fetchAll();
         <h1 class="pb-3 text-white text-xl pt-6">質問一覧</h1>
         <div id="questionsContainer">
             <?php foreach ($questions as $question): ?>
-                <button onclick="window.location.href='questionDetail.php?id=<?php echo $question['question_id']; ?>'"  class="question-item w-full text-left text-white p-4 mb-3 rounded bg-gray-800" data-title="<?php echo strtolower(htmlspecialchars($question['question_title'])); ?>" data-text="<?php echo strtolower(htmlspecialchars($question['question_text'])); ?>">
+                <button onclick="window.location.href='questionDetail.php?id=<?php echo $question['question_id']; ?>'" class="question-item w-full text-left text-white p-4 mb-3 rounded bg-gray-800" data-title="<?php echo strtolower(htmlspecialchars($question['question_title'])); ?>" data-text="<?php echo strtolower(htmlspecialchars($question['question_text'])); ?>">
                     <h2 class="font-bold"><?php echo htmlspecialchars($question['question_title']); ?></h2>
                     <p><?php echo htmlspecialchars($question['question_text']); ?></p>
                     <span class="text-sm">質問日: <?php echo date('Y-m-d', strtotime($question['question_time'])); ?></span>
@@ -65,7 +76,12 @@ $questions = $stmt->fetchAll();
             <i class="fa fa-plus"></i>
         </a>
     </div>
-
+    <?php if ($loginSuccess): ?>
+        <div id="login-notification" class="notification fixed top-0 left-1/2 transform -translate-x-1/2 p-4 bg-gray-900 text-white flex flex-col items-center justify-center rounded-lg shadow-lg animate-slide-down max-w-lg w-full">
+            <span class="text-lg">ログインしました</span>
+            <button id="notification-close" class="mt-4 bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-6 rounded">OK</button>
+        </div>
+    <?php endif; ?>
     <script>
         function filterQuestions() {
             let input = document.getElementById('searchInput').value.toLowerCase();
@@ -81,7 +97,17 @@ $questions = $stmt->fetchAll();
                 }
             });
         }
-    </script>
 
+        document.addEventListener('DOMContentLoaded', (event) => {
+            if (document.getElementById('login-notification')) {
+                document.getElementById('notification-close').addEventListener('click', () => {
+                    document.getElementById('login-notification').remove();
+                });
+                setTimeout(() => {
+                    document.getElementById('login-notification').remove();
+                }, 3000);
+            }
+        });
+    </script>
 </body>
 </html>
