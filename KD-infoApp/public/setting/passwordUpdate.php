@@ -47,6 +47,12 @@
         .toggle-password {
             cursor: pointer;
         }
+
+        .error-message {
+            color: #e53e3e;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
     </style>
 </head>
 
@@ -75,6 +81,8 @@
             $password = "denshi"; // データベースのパスワード
             $dbname = "prosite"; // データベース名
 
+            $error_message = '';
+
             // POSTリクエストがあるかどうかをチェック
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // 現在のパスワードを取得
@@ -85,7 +93,7 @@
 
                 // 新しいパスワードが現在のパスワードと同じかどうかを確認
                 if ($current_password === $new_password) {
-                    echo "<p class='text-red-500 text-xs italic'>現在のパスワードと新しいパスワードが一緒です。もう一度やり直してください。</p>";
+                    $error_message = '現在のパスワードと新しいパスワードが一緒です。もう一度やり直してください。';
                 } else {
                     try {
                         // データベースに接続
@@ -104,13 +112,12 @@
                                 // パスワードが一致する場合の処理
                                 // 新しいパスワードが8文字以上であることを確認
                                 if (strlen($new_password) < 8) {
-                                    echo "<p class='text-red-500 text-xs italic'>新しいパスワードは8文字以上である必要があります。</p>";
+                                    $error_message = '新しいパスワードは8文字以上である必要があります。';
                                 } elseif ($new_password !== $confirm_password) {
-                                    echo "<p class='text-red-500 text-xs italic'>新しいパスワードが一致しません。もう一度お試しください。</p>";
+                                    $error_message = '新しいパスワードが一致しません。もう一度お試しください。';
                                 } else {
                                     // パスワードをハッシュ化
                                     $hashed_new_password = password_hash($new_password, PASSWORD_DEFAULT);
-
                                     // パスワードを更新するクエリ
                                     $stmt = $conn->prepare("UPDATE users SET user_pass = :hashed_password WHERE user_name = :user_name");
                                     $stmt->bindParam(':hashed_password', $hashed_new_password);
@@ -118,19 +125,23 @@
                                     $stmt->execute();
 
                                     // パスワードが更新されたらホームページにリダイレクト
+                                    $_SESSION['password_change_success'] = true;
                                     header("Location: /PBI1-B-Humble/KD-infoApp/public/posting/index.php");
                                     exit();
                                 }
                             } else {
-                                echo "<p class='text-red-500 text-xs italic'>現在のパスワードが正しくありません。</p>";
+                                $error_message = '現在のパスワードが正しくありません。';
                             }
                         }
                     } catch (PDOException $e) {
-                        echo "<p>エラー: " . $e->getMessage() . "</p>";
+                        $error_message = 'エラー: ' . $e->getMessage();
                     }
                 }
             }
             ?>
+            <!-- <div class="modal-content">
+                <h2 class="text-lg font-bold text-center mb-4">パスワード変更</h2>
+                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" class="space-y-4"> -->
             <div class="input-field relative">
                 <input type="password" id="current_password" name="current_password" placeholder="現在のパスワード" required class="mt-1 block w-full px-3 py-2 rounded-md">
                 <span class="toggle-password absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
@@ -149,6 +160,11 @@
                     <i class="fa fa-eye-slash" aria-hidden="true" onclick="togglePasswordVisibility('confirm_password')"></i>
                 </span>
             </div>
+            <?php
+            if ($error_message) {
+                echo "<p class='error-message'>$error_message</p>";
+            }
+            ?>
             <button type="submit" class="bg-red-600 hover:bg-red-800 text-white font-bold py-2 px-4 w-full rounded focus:outline-none focus:shadow-outline">変更</button>
         </form>
     </div>
