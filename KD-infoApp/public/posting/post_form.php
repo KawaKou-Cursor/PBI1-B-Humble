@@ -32,7 +32,7 @@ renderHeader('posting');
     </form>
 
     <h2 class="text-xl max-w-5xl mx-auto px-4 pt-0">プログラム作品投稿フォーム</h2>
-    <!-- blueバックグラウンド -->
+    <!-- Form バックグラウンド -->
     <div class="max-w-5xl mx-auto px-4 pt-5 pb-5">
         <div class="rounded-md shadow">
             <!-- PostForm -->
@@ -86,7 +86,7 @@ renderHeader('posting');
 
                 <!-- 投稿ボタン -->
                 <div class="flex justify-center pt-2">
-                    <input type="submit" value="投稿" class="bg-black border border-white hover:bg-white hover:text-black rounded px-4 py-2">
+                    <input type="submit" value="作品を投稿" class="bg-black border border-white hover:bg-white hover:text-black rounded px-4 py-2">
                 </div>
             </form>
         </div>

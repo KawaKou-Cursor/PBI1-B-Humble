@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Question KD-info</title>
+    <title>Question Creation KD-info</title>
     <!-- TailwindCSSに必要なリンク -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <!-- Font Awesome CSSを追加 -->
@@ -78,31 +78,53 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- タブのアイコン設定(相対パスは非表示になるバグがあるので絶対パスで指定中) -->
     <link rel="icon" type="image/png" href="\PBI1-B-Humble\KD-infoApp\public\Components\static\AppIcon\KD-info2.png">
     <style>
-        body { background-color: #111; }
+        body {
+            background-color: #111;
+        }
     </style>
 </head>
 
 <?php
-    // ヘッダーのインポート
-    include '../Components/src/renderHeader.php';
-    renderHeader('question');
+// ヘッダーのインポート
+include '../Components/src/renderHeader.php';
+renderHeader('question');
 ?>
 
-<body>
-    <div class="container mx-auto p-4">
-        <h1 class="text-white text-xl">新しい質問を投稿</h1>
+<body class="bg-black text-white">
+    <!-- 投稿一覧ボタン -->
+    <form action="index.php" class="pl-1 pt-1">
+        <input type="submit" value="質問一覧へ" class="bg-black border border-white hover:bg-white hover:text-black rounded px-2 py-1">
+    </form>
+
+    <div class="text-xl max-w-5xl mx-auto px-4 pt-0">新しい質問投稿フォーム</div>
+
+    <!-- form バックグランド設定 -->
+    <div class="max-w-5xl mx-auto px-4 pt-5 pb-5">
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" class="space-y-4">
-            <div class="input-field">
-                <label class="text-white">タイトル:</label>
-                <input type="text" name="title" required class="block w-full px-3 py-2 rounded-md">
+
+            <!-- Question Title Entry -->
+            <div class="pb-1">
+                <label class="text-white">質問のタイトル</label>
+                <input type="text" name="title" required class="w-full bg-black rounded border-2 border-white text-3xl px-2 py-2">
             </div>
+
             <div class="input-field">
-                <label class="text-white">詳細:</label>
-                <textarea name="text" required class="block w-full px-3 py-2 rounded-md"></textarea>
+                <label class="text-white">質問の詳細内容</label>
+                <textarea name="text" rows="16" required class="w-full bg-black rounded border-2 border-white"></textarea>
             </div>
-            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">投稿</button>
+
+            <!-- Posting Description Entry -->
+            <!-- <label for="description" class="pl-0">作品の詳細説明</label>
+        <textarea id="description" name="description" rows="4" required class="w-full bg-black rounded border-2 border-white"></textarea> -->
+
+            <!-- <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">投稿</button> -->
+            <!-- 投稿ボタン -->
+            <div class="flex justify-center pt-2">
+                <input type="submit" value="質問を投稿" class="bg-black border border-white hover:bg-white hover:text-black rounded px-4 py-2">
+            </div>
         </form>
     </div>
+
 </body>
 
 </html>

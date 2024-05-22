@@ -1,11 +1,20 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>プロフィール</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Other Profile</title>
+    <!-- TailwindCSSに必要なリンク -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Font Awesome CSSを追加 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- タブのアイコン設定(相対パスは非表示になるバグがあるので絶対パスで指定中) -->
+    <link rel="icon" type="image/png" href="\PBI1-B-Humble\KD-infoApp\public\Components\static\AppIcon\KD-info2.png">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -157,7 +166,7 @@
 
 <body>
     <?php
-    include 'C:\xampp\htdocs\PBI1-B-Humble\KD-infoApp\public\Components\src\renderHeader.php';
+    include '../Components/src/renderHeader.php';
     renderHeader('question');
     ?>
     <div class="profile-container border-2 border-white">
