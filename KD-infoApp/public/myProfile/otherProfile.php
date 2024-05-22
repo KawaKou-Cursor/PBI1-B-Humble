@@ -9,7 +9,7 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #333;
+            background-color: #111;
             margin: 0;
             padding: 0;
             color: #fff;
@@ -18,7 +18,7 @@
         .profile-container {
             max-width: 900px;
             margin: 50px auto;
-            background-color: #222;
+            background-color: #111;
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
@@ -33,15 +33,22 @@
             object-fit: cover;
             margin: 0 auto 20px;
             display: block;
-            border: 4px solid #4CAF50;
+            border: 2px solid #000080;
+        }
+
+        .profile-name-container {
+            text-align: center;
+            /* 名前を中央揃えにする親要素 */
         }
 
         .profile-name {
             font-size: 30px;
             font-weight: bold;
-            text-align: center;
-            margin-bottom: 15px;
-            color: #4CAF50;
+            color: #fff;
+            background-color: #2c2c2c;
+            padding: 10px;
+            border-radius: 10px;
+            display: inline-block;
         }
 
         .profile-title {
@@ -68,7 +75,7 @@
             font-size: 24px;
             font-weight: bold;
             margin-bottom: 15px;
-            color: #4CAF50;
+            color: #fff;
         }
 
         .section-text {
@@ -153,8 +160,9 @@
     include 'C:\xampp\htdocs\PBI1-B-Humble\KD-infoApp\public\Components\src\renderHeader.php';
     renderHeader('question');
     ?>
-    <div class="profile-container">
-        <img src="https://via.placeholder.com/180" alt="Profile Image" class="profile-image">
+    <div class="profile-container border-2 border-white">
+        <!-- <img src="../Components/static/image" alt="Profile Image" class="profile-image"> -->
+        <img src="../Components/static/image/aikon.png" alt="Profile Image" class="profile-image">
 
         <?php
         // 金城DB（projectDB）のデータベース接続情報
@@ -206,10 +214,12 @@
             echo 'ユーザーが見つかりませんでした';
         }
 
-
+        echo '<div class="profile-name-container">'; // 名前を中央揃えにする親要素
         echo '<div class="profile-name">';
         echo $other_user_name;
         echo '</div>';
+        echo '</div>';
+
         echo '<div class="profile-title">';
         echo $other_profile_title;
         echo '</div>';

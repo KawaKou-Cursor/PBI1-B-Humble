@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 // データベース接続
 $servername = "localhost";
 $username = "username";
@@ -25,9 +27,9 @@ $stmt->execute();
 
 // 実行結果を確認
 if ($stmt->affected_rows > 0) {
-    echo "投稿が正常に保存されました";
+    $_SESSION['post_success'] = true;
 } else {
-    echo "投稿の保存中にエラーが発生しました";
+    $_SESSION['post_success'] = false;
 }
 
 // 接続を閉じる
