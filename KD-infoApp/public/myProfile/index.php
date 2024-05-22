@@ -38,7 +38,7 @@
       object-fit: cover;
       margin: 0 auto 20px;
       display: block;
-      border: 4px solid #4CAF50;
+      border: 2px solid #000080;
     }
 
     .profile-name {
@@ -46,7 +46,7 @@
       font-weight: bold;
       text-align: center;
       margin-bottom: 15px;
-      color: #4CAF50;
+      color: #fff;
     }
 
     .profile-details p {
@@ -65,7 +65,7 @@
       font-size: 24px;
       font-weight: bold;
       margin-bottom: 15px;
-      color: #4CAF50;
+      color: #fff;
     }
 
     .section-text {
@@ -101,6 +101,11 @@
 
     .list-container a:hover {
       color: #4CAF50;
+    }
+
+    .list-container a.delete-link:hover {
+      color: #ff0000;
+      /* 削除リンクのホバーカラーを赤色に設定 */
     }
 
     .date,
@@ -194,7 +199,7 @@
         echo "<li>";
         echo "<a href='#'><i class='fas fa-globe'></i> " . htmlspecialchars($row["title"]) . "</a>";
         echo "<span class='work-date'>投稿日：" . htmlspecialchars($row["created_at"]) . "</span>";
-        echo "<a href='delete.php?id=" . $row['id'] . "' onclick=\"return confirm('本当にこの投稿を削除しますか？');\">削除</a>";
+        echo "<a href='delete.php?id=" . $row['id'] . "' class='delete-link' onclick=\"return confirm('本当にこの投稿を削除しますか？');\">削除</a>";
         echo "</li>";
       }
     } else {
@@ -233,7 +238,7 @@
         echo "<a href='#'><i class='fas fa-question-circle'></i> " . htmlspecialchars($row["question_title"]) . "</a>";
         echo "<span class='like-count'><i class='fas fa-heart'></i> " . htmlspecialchars($row["question_good"]) . "</span>";
         echo "<span class='date'>" . htmlspecialchars($row["question_time"]) . "</span>";
-        echo "<a href='delete_question.php?id=" . $row['question_id'] . "' onclick=\"return confirm('本当にこの質問を削除しますか？');\">削除</a>";
+        echo "<a href='delete_question.php?id=" . $row['question_id'] . "' class='delete-link'' onclick=\"return confirm('本当にこの質問を削除しますか？');\">削除</a>";
         echo "</li>";
       }
     } else {
@@ -260,7 +265,7 @@
         echo "<li>";
         echo "<p>" . htmlspecialchars($row["reply_text"]) . "</p>";
         echo "<span class='date'>" . htmlspecialchars($row["reply_time"]) . "</span>";
-        echo "<a href='delete_reply.php?id=" . $row['reply_id'] . "' onclick=\"return confirm('本当にこの回答を削除しますか？');\">削除</a>";
+        echo "<a href='delete_reply.php?id=" . $row['reply_id'] . "' class='delete-link'' onclick=\"return confirm('本当にこの回答を削除しますか？');\">削除</a>";
         echo "</li>";
       }
     } else {
