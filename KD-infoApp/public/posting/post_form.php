@@ -1,54 +1,96 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>プログラム作品投稿フォーム</title>
+    <title>Post Creation KD-info</title>
+    <!-- TailwindCSSに必要なリンク -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Font Awesome CSSを追加 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- タブのアイコン設定(相対パスは非表示になるバグがあるので絶対パスで指定中) -->
+    <link rel="icon" type="image/png" href="\PBI1-B-Humble\KD-infoApp\public\Components\static\AppIcon\KD-info2.png">
+    <style>
+        body {
+            background-color: #111;
+        }
+    </style>
 </head>
-<body>
-    <h1>プログラム作品投稿フォーム</h1>
-    <form action="submit.php" method="post">
-        <label for="title">作品の題名:</label><br>
-        <input type="text" id="title" name="title" required><br><br>
-        
-        <label for="code">プログラムコード:</label><br>
-        <textarea id="code" name="code" rows="10" required></textarea><br><br>
-        
-        <label for="description">作品の説明:</label><br>
-        <textarea id="description" name="description" rows="5" required></textarea><br><br>
-        
-        <label for="language">使用言語:</label><br>
-        <select id="language" name="language">
-            <option value="C">C</option>
-            <option value="C++">C++</option>
-            <option value="Java">Java</option>
-            <option value="Python">Python</option>
-            <option value="JavaScript">JavaScript</option>
-            <option value="HTML">HTML</option>
-            <option value="CSS">CSS</option>
-            <option value="PHP">PHP</option>
-            <option value="Ruby">Ruby</option>
-            <option value="Swift">Swift</option>
-            <option value="Kotlin">Kotlin</option>
-            <option value="Go">Go</option>
-            <option value="Rust">Rust</option>
-            <!-- 新しく追加する言語オプション -->
-            <option value="Scala">Scala</option>
-            <option value="Haskell">Haskell</option>
-            <option value="Erlang">Erlang</option>
-            <option value="Lua">Lua</option>
-            <option value="TypeScript">TypeScript</option>
-            <option value="Perl">Perl</option>
-            <option value="Elixir">Elixir</option>
-            <option value="Clojure">Clojure</option>
-        </select><br><br>
-        
-        <input type="submit" value="投稿">
-    </form>
 
+<?php
+// ヘッダーのインポートと表示
+include '../Components/src/renderHeader.php';
+renderHeader('posting');
+?>
+
+<body>
     <!-- 投稿一覧ボタン -->
-    <form action="index.php">
-        <input type="submit" value="投稿一覧" style="position: fixed; bottom: 20px; right: 20px;">
+    <form action="index.php" class="pl-1 pt-1">
+        <input type="submit" value="投稿一覧へ" class="bg-black border border-white hover:bg-white hover:text-black rounded px-2 py-1">
     </form>
 </body>
+
+<body class="bg-black text-white">
+    <h2 class="text-xl max-w-5xl mx-auto px-4 pt-0">プログラム作品投稿フォーム</h2>
+    <!-- blueバックグラウンド -->
+    <div class="max-w-5xl mx-auto px-4 pt-5 pb-5">
+        <div class="bg-gray-800 p-5 rounded-md shadow">
+            <!-- PostForm -->
+            <form action="submit.php" method="post">
+
+                <!-- Posting Title Entry -->
+                <label for="title" class="">作品のタイトル入力</label><br>
+                <!-- Posting Title Entry -->
+                <input type="text" id="title" name="title" required
+                    class="max-w-5xl bg-black rounded border-2 border-white text-3xl px-2 py-1">
+                <br><br>
+
+                <!-- Language -->
+                <label for="language" class="">使用言語選択</label><br>
+
+                <!-- プルダウンメニュー表示 -->
+                <select id="language" name="language">
+                    <option value="C">C</option>
+                    <option value="C++">C++</option>
+                    <option value="Java">Java</option>
+                    <option value="Python">Python</option>
+                    <option value="JavaScript">JavaScript</option>
+                    <option value="HTML">HTML</option>
+                    <option value="CSS">CSS</option>
+                    <option value="PHP">PHP</option>
+                    <option value="Ruby">Ruby</option>
+                    <option value="Swift">Swift</option>
+                    <option value="Kotlin">Kotlin</option>
+                    <option value="Go">Go</option>
+                    <option value="Rust">Rust</option>
+                    <!-- 新しく追加する言語オプション -->
+                    <option value="Scala">Scala</option>
+                    <option value="Haskell">Haskell</option>
+                    <option value="Erlang">Erlang</option>
+                    <option value="Lua">Lua</option>
+                    <option value="TypeScript">TypeScript</option>
+                    <option value="Perl">Perl</option>
+                    <option value="Elixir">Elixir</option>
+                    <option value="Clojure">Clojure</option>
+                </select>
+
+                <!-- Code -->
+                <br>
+                <label for="code" class="">プログラムコード入力</label><br>
+                <textarea id="code" name="code" rows="10" required class="bg-black rounded border-2 border-white"></textarea><br>
+
+                <!-- Posting Description Entry -->
+                <label for="description" class="pl-0">作品の詳細説明</label><br>
+                <textarea id="description" name="description" rows="5" required class="bg-black rounded border-2 border-white"></textarea><br><br>
+
+                <!-- 投稿ボタン -->
+                <div class="flex justify-center">
+                    <input type="submit" value="投稿" class="bg-black border border-white hover:bg-white hover:text-black rounded px-4 py-2">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
 </html>
