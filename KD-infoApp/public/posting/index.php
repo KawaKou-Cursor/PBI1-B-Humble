@@ -28,7 +28,7 @@ session_start();
 
 <!DOCTYPE html>
 <html lang="ja">
-<!-- インポートリンクと表示設定 -->
+    <!-- インポートリンクと表示設定 -->
 
 <head>
     <meta charset="UTF-8">
@@ -47,7 +47,7 @@ session_start();
         }
     </style>
 
-    <!-- Kinjo-CSS -->
+     　<!-- Kinjo-CSS -->
     <style>
         .post {
             display: flex;
@@ -94,7 +94,7 @@ session_start();
             background-color: #ff0000;
         }
 
-        /* #postButton {
+            /* #postButton {
             position: fixed;
             bottom: 20px;
             right: 20px;
@@ -118,7 +118,7 @@ session_start();
         .sortButton.asc {
             background-color: #ff0000;
         }
-
+        
         /* #searchBar {
             position: absolute;
             top: 10px;
@@ -139,7 +139,7 @@ renderHeader('question');
         <input type="text" id="searchInput" placeholder="投稿を検索..." class="form-input block w-full px-4 py-2 text-black border bg-gray-800 text-gray-300 border-gray-700 focus:border-gray-500 rounded" oninput="filterPosts(this.value)">
     </div>
 
-    <!-- session内で表示順の管理を行うPHPと推測 -->
+　　<!-- session内で表示順の管理を行うPHPと推測 -->
     <?php
     // ソート状態と言語フィルタの管理
     if (!isset($_SESSION['sort'])) {
@@ -277,6 +277,12 @@ renderHeader('question');
         <?php if (isset($_SESSION["login_success"]) && $_SESSION["login_success"]): ?>
         alert("ログインに成功しました");
         <?php unset($_SESSION["login_success"]); ?>
+        <?php endif; ?>
+
+        // 投稿完了時のダイアログ表示
+        <?php if (isset($_SESSION["post_success"]) && $_SESSION["post_success"]): ?>
+        alert("投稿しました");
+        <?php unset($_SESSION["post_success"]); ?>
         <?php endif; ?>
     </script>
 </body>
