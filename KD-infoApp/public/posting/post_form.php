@@ -24,68 +24,68 @@ include '../Components/src/renderHeader.php';
 renderHeader('posting');
 ?>
 
-<body>
-    <!-- 投稿一覧ボタン -->
+
+<body class="bg-black text-white">
+        <!-- 投稿一覧ボタン -->
     <form action="index.php" class="pl-1 pt-1">
         <input type="submit" value="投稿一覧へ" class="bg-black border border-white hover:bg-white hover:text-black rounded px-2 py-1">
     </form>
-</body>
 
-<body class="bg-black text-white">
     <h2 class="text-xl max-w-5xl mx-auto px-4 pt-0">プログラム作品投稿フォーム</h2>
     <!-- blueバックグラウンド -->
     <div class="max-w-5xl mx-auto px-4 pt-5 pb-5">
-        <div class="bg-gray-800 p-5 rounded-md shadow">
+        <div class="rounded-md shadow">
             <!-- PostForm -->
             <form action="submit.php" method="post">
 
                 <!-- Posting Title Entry -->
-                <label for="title" class="">作品のタイトル入力</label><br>
-                <!-- Posting Title Entry -->
-                <input type="text" id="title" name="title" required
-                    class="max-w-5xl bg-black rounded border-2 border-white text-3xl px-2 py-1">
-                <br><br>
+                <div class="pb-2">
+                    <label for="title" class="">作品のタイトル入力</label><br>
+                    <input type="text" id="title" name="title" required class="w-full bg-black rounded border-2 border-white text-3xl px-2 py-2">
+                </div>
 
                 <!-- Language -->
-                <label for="language" class="">使用言語選択</label><br>
-
-                <!-- プルダウンメニュー表示 -->
-                <select id="language" name="language">
-                    <option value="C">C</option>
-                    <option value="C++">C++</option>
-                    <option value="Java">Java</option>
-                    <option value="Python">Python</option>
-                    <option value="JavaScript">JavaScript</option>
-                    <option value="HTML">HTML</option>
-                    <option value="CSS">CSS</option>
-                    <option value="PHP">PHP</option>
-                    <option value="Ruby">Ruby</option>
-                    <option value="Swift">Swift</option>
-                    <option value="Kotlin">Kotlin</option>
-                    <option value="Go">Go</option>
-                    <option value="Rust">Rust</option>
-                    <!-- 新しく追加する言語オプション -->
-                    <option value="Scala">Scala</option>
-                    <option value="Haskell">Haskell</option>
-                    <option value="Erlang">Erlang</option>
-                    <option value="Lua">Lua</option>
-                    <option value="TypeScript">TypeScript</option>
-                    <option value="Perl">Perl</option>
-                    <option value="Elixir">Elixir</option>
-                    <option value="Clojure">Clojure</option>
-                </select>
+                <div class="pl-2 pb-2">
+                    <label for="language" class="">使用言語選択</label><br>
+                    <!-- プルダウンメニュー表示 -->
+                    <select id="language" name="language" class="bg-black border-2 border-white rounded">
+                        <option value="C">C</option>
+                        <option value="C++">C++</option>
+                        <option value="Java">Java</option>
+                        <option value="Python">Python</option>
+                        <option value="JavaScript">JavaScript</option>
+                        <option value="HTML">HTML</option>
+                        <option value="CSS">CSS</option>
+                        <option value="PHP">PHP</option>
+                        <option value="Ruby">Ruby</option>
+                        <option value="Swift">Swift</option>
+                        <option value="Kotlin">Kotlin</option>
+                        <option value="Go">Go</option>
+                        <option value="Rust">Rust</option>
+                        <!-- 新しく追加する言語オプション -->
+                        <option value="Scala">Scala</option>
+                        <option value="Haskell">Haskell</option>
+                        <option value="Erlang">Erlang</option>
+                        <option value="Lua">Lua</option>
+                        <option value="TypeScript">TypeScript</option>
+                        <option value="Perl">Perl</option>
+                        <option value="Elixir">Elixir</option>
+                        <option value="Clojure">Clojure</option>
+                    </select>
+                </div>
 
                 <!-- Code -->
-                <br>
-                <label for="code" class="">プログラムコード入力</label><br>
-                <textarea id="code" name="code" rows="10" required class="bg-black rounded border-2 border-white"></textarea><br>
+                <div class="pb-2">
+                    <label for="code" class="">プログラムコード入力</label>
+                    <textarea id="code" name="code" rows="9" required class="w-full bg-black rounded border-2 border-white"></textarea><br>
+                </div>
 
                 <!-- Posting Description Entry -->
-                <label for="description" class="pl-0">作品の詳細説明</label><br>
-                <textarea id="description" name="description" rows="5" required class="bg-black rounded border-2 border-white"></textarea><br><br>
+                <label for="description" class="pl-0">作品の詳細説明</label>
+                <textarea id="description" name="description" rows="4" required class="w-full bg-black rounded border-2 border-white"></textarea>
 
                 <!-- 投稿ボタン -->
-                <div class="flex justify-center">
+                <div class="flex justify-center pt-2">
                     <input type="submit" value="投稿" class="bg-black border border-white hover:bg-white hover:text-black rounded px-4 py-2">
                 </div>
             </form>
