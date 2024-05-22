@@ -72,6 +72,9 @@
         document.getElementById('logout-confirm').addEventListener('click', function() {
             // フォームをサブミットする
             document.getElementById('logout-form').submit();
+            // アラートでログアウト成功を通知
+            alert("ログアウトしました");
+
         });
     <?php endif; ?>
 </script>

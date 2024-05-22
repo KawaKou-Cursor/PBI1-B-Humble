@@ -28,7 +28,7 @@ session_start();
 
 <!DOCTYPE html>
 <html lang="ja">
-    <!-- インポートリンクと表示設定 -->
+        <!-- インポートリンクと表示設定 -->
 
 <head>
     <meta charset="UTF-8">
@@ -39,16 +39,16 @@ session_start();
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <!-- Font Awesome CSSを追加 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- タブのアイコン設定(相対パスは非表示になるバグがあるので絶対パスで指定中) -->
+     <!-- タブのアイコン設定(相対パスは非表示になるバグがあるので絶対パスで指定中) -->
     <link rel="icon" type="image/png" href="\PBI1-B-Humble\KD-infoApp\public\Components\static\AppIcon\KD-info2.png">
     <style>
         body {
             background-color: #111;
         }
-    </style>
+        </style>
 
-     　<!-- Kinjo-CSS -->
-    <style>
+　<!-- Kinjo-CSS -->
+<style>
         .post {
             display: flex;
             align-items: center;
@@ -67,11 +67,11 @@ session_start();
             color: #ffffff;
         }
 
-        .post .title a:hover {
+        .post .title a:hover { 
             text-decoration: underline;
-        }
+         }
 
-        .post .info {
+        .post .info { 
             flex: 3;
             font-size: 14px;
         }
@@ -89,12 +89,12 @@ session_start();
             border-radius: 5px;
             margin-left: 5px;
         }
-
+        
         .deleteButton {
             background-color: #ff0000;
         }
 
-            /* #postButton {
+                    /* #postButton {
             position: fixed;
             bottom: 20px;
             right: 20px;
@@ -103,22 +103,24 @@ session_start();
             cursor: pointer;
         } */
         .averageRating {
-            color: red;
-            font-weight: bold;
-        }
+             color: red;
+             font-weight: bold;
+            
+            }
 
         .sortButton.desc:after {
-            content: "▲";
-        }
+             content: "▲";
+            
+            }
 
         .sortButton.asc:after {
-            content: "▼";
-        }
+             content: "▼";
+             }
 
         .sortButton.asc {
-            background-color: #ff0000;
-        }
-        
+                  background-color: #ff0000;
+             }
+                
         /* #searchBar {
             position: absolute;
             top: 10px;
@@ -126,20 +128,19 @@ session_start();
         } */
     </style>
 </head>
-
-<!-- ヘッダーのインポート -->
-<?php
-include '../Components/src/renderHeader.php';
-renderHeader('question');
-?>
-
 <body>
+    <!-- ヘッダーのインポート -->
+    <?php
+    include '../Components/src/renderHeader.php';
+    renderHeader('question');
+    ?>
+
     <!-- 検索バー -->
     <div id="searchBar" class="flex justify-center pt-3 pb-1 pl-60 pr-60">
         <input type="text" id="searchInput" placeholder="投稿を検索..." class="form-input block w-full px-4 py-2 text-black border bg-gray-800 text-gray-300 border-gray-700 focus:border-gray-500 rounded" oninput="filterPosts(this.value)">
     </div>
 
-　　<!-- session内で表示順の管理を行うPHPと推測 -->
+    <!-- session内で表示順の管理を行うPHPと推測 -->
     <?php
     // ソート状態と言語フィルタの管理
     if (!isset($_SESSION['sort'])) {
@@ -275,14 +276,20 @@ renderHeader('question');
 
         // ログイン成功時のダイアログ表示
         <?php if (isset($_SESSION["login_success"]) && $_SESSION["login_success"]): ?>
-        alert("ログインに成功しました");
-        <?php unset($_SESSION["login_success"]); ?>
+            alert("ログインしました");
+            <?php unset($_SESSION["login_success"]); ?>
         <?php endif; ?>
 
         // 投稿完了時のダイアログ表示
         <?php if (isset($_SESSION["post_success"]) && $_SESSION["post_success"]): ?>
-        alert("投稿しました");
-        <?php unset($_SESSION["post_success"]); ?>
+            alert("投稿しました");
+            <?php unset($_SESSION["post_success"]); ?>
+        <?php endif; ?>
+
+        // パスワード変更成功時のダイアログ表示
+        <?php if (isset($_SESSION["password_change_success"])): ?>
+            alert("パスワードが変更されました");
+            <?php unset($_SESSION["password_change_success"]); ?>
         <?php endif; ?>
     </script>
 </body>
