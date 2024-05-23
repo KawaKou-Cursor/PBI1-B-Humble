@@ -241,7 +241,7 @@ session_start();
                     if ($row["average_rating"] !== null) {
                         echo "評価: " . number_format($row["average_rating"], 1) . " / 5.0 <br>";
                     }
-                    echo "<button class='deleteButton bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-1 rounded ml-auto' onclick='deleteProject(" . $row["id"] . ")'>削除</button>";
+                    // echo "<button class='deleteButton bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-1 rounded ml-auto' onclick='deleteProject(" . $row["id"] . ")'>削除</button>";
                     echo "</div>";
                     echo "</div>";
                 }

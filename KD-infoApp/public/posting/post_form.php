@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -26,7 +29,7 @@ renderHeader('posting');
 
 
 <body class="bg-black text-white">
-        <!-- 投稿一覧ボタン -->
+    <!-- 投稿一覧ボタン -->
     <form action="index.php" class="pl-1 pt-1">
         <input type="submit" value="投稿一覧へ" class="bg-black border border-white hover:bg-white hover:text-black rounded px-2 py-1">
     </form>
