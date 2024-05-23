@@ -1,9 +1,14 @@
 <?php
-    session_start();
+session_start();
 ?>
 
 <!DOCTYPE html>
 <html lang="ja">
+
+<?php
+include '../Components/src/renderHeader.php';
+renderHeader('question');
+?>
 
 <head>
     <meta charset="UTF-8">
@@ -165,12 +170,8 @@
 </head>
 
 <body>
-    <?php
-    include '../Components/src/renderHeader.php';
-    renderHeader('question');
-    ?>
+
     <div class="profile-container border-2 border-white">
-        <!-- <img src="../Components/static/image" alt="Profile Image" class="profile-image"> -->
         <img src="../Components/static/image/aikon.png" alt="Profile Image" class="profile-image">
 
         <?php
@@ -193,27 +194,19 @@
             die("データベースへの接続失敗: " . $answer_conn->connect_error);
         }
 
-        // 他のユーザー名を保持する変数
-        // $other_user_name = 'densuke';    // テスト用データ
-        // $other_user_name = 'tsubo tea';  // テスト用データ
         $other_user_id = $_GET['user_id']; // 他のユーザーのuser_idを取得;
 
         // 他のユーザー名からユーザー情報を取得
         $sql = 'SELECT * FROM users WHERE user_id = ?'; // SQL文を変数に代入
         $stmt = $answer_conn->prepare($sql); // SQL文実行する前にprepareメソッドを実行
-        // プレースホルダーに値をバインド
-        $stmt->bind_param('s', $other_user_id);
-        // クエリを実行
-        $stmt->execute();
-
-        // 結果を取得
-        $result = $stmt->get_result();
+        $stmt->bind_param('s', $other_user_id); // プレースホルダーに値をバインド
+        $stmt->execute(); // クエリを実行
+        $result = $stmt->get_result(); // 結果を取得
         if ($result === false) {
             die("結果の取得に失敗しました: " . $stmt->error);
         }
 
-        // 結果を連想配列で取得
-        $row = $result->fetch_assoc();
+        $row = $result->fetch_assoc(); // 結果を連想配列で取得
         if ($row) {
             $other_user_name = $row['user_name'];  // ユーザー名があれば取得
             $other_user_id = $row['user_id'];  // ユーザーのuser_idがあれば取得
@@ -247,7 +240,6 @@
 
         // projectDBに接続
         $post_conn = new mysqli($post_servername, $post_username, $post_password, $post_dbname);
-
         // 接続をチェック
         if ($post_conn->connect_error) {
             die("データベースへの接続失敗: " . $post_conn->connect_error);
@@ -256,12 +248,9 @@
         // projectDBからデータを取得
         $sql = "SELECT * FROM projects WHERE user_id = ?";
         $stmt = $post_conn->prepare($sql); // SQL文実行する前にprepareメソッドを実行
-        // プレースホルダーに値をバインド
-        $stmt->bind_param('s', $other_user_id);
-        // クエリを実行
-        $stmt->execute();
-        // 結果を取得
-        $result = $stmt->get_result();
+        $stmt->bind_param('s', $other_user_id); // プレースホルダーに値をバインド
+        $stmt->execute(); // クエリを実行
+        $result = $stmt->get_result(); // 結果を取得
         if ($result === false) {
             die("結果の取得に失敗しました: " . $stmt->error);
         }
@@ -284,8 +273,7 @@
         // projectDBの接続を閉じる
         $post_conn->close();
 
-
-        // prositeに接続
+        // prositeに再接続
         $answer_conn = new mysqli($answer_servername, $answer_username, $answer_password, $answer_dbname);
         // 接続をチェック
         if ($answer_conn->connect_error) {
@@ -301,13 +289,9 @@
         // 他のユーザー名からユーザー情報を取得
         $sql = 'SELECT * FROM questions WHERE user_id = ?'; // SQL文を変数に代入
         $stmt = $answer_conn->prepare($sql); // SQL文実行する前にprepareメソッドを実行
-        // プレースホルダーに値をバインド
-        $stmt->bind_param('s', $other_user_id);
-        // クエリを実行
-        $stmt->execute();
-
-        // 結果を取得
-        $result = $stmt->get_result();
+        $stmt->bind_param('s', $other_user_id); // プレースホルダーに値をバインド
+        $stmt->execute(); // クエリを実行
+        $result = $stmt->get_result(); // 結果を取得
         if ($result === false) {
             die("結果の取得に失敗しました: " . $stmt->error);
         }
@@ -337,12 +321,9 @@
         // repliesテーブルからデータを取得
         $sql = "SELECT * FROM replies WHERE user_id = ?"; // SQL文を変数に代入
         $stmt = $answer_conn->prepare($sql); // SQL文実行する前にprepareメソッドを実行
-        // プレースホルダーに値をバインド
-        $stmt->bind_param('s', $other_user_id);
-        // クエリを実行
-        $stmt->execute();
-        // 結果を取得
-        $result = $stmt->get_result();
+        $stmt->bind_param('s', $other_user_id); // プレースホルダーに値をバインド
+        $stmt->execute(); // クエリを実行
+        $result = $stmt->get_result(); // 結果を取得
 
         // 質問に対する回答元の質問タイトルを取得するためのSQL文
         $sql_second = "SELECT question_title FROM questions WHERE question_id = ? ";
@@ -350,16 +331,12 @@
 
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                // プレースホルダーに値をバインド
-                $stmt->bind_param('s', $row["question_id"]);
-                // クエリを実行
-                $stmt->execute();
-                // 結果を取得
-                $result_second = $stmt->get_result();
+                $stmt->bind_param('s', $row["question_id"]); // プレースホルダーに値をバインド
+                $stmt->execute(); // クエリを実行
+                $result_second = $stmt->get_result(); // 結果を取得
                 $row_second = $result_second->fetch_assoc();
                 echo "<li>";
                 echo "<div class='data-title'>回答元：" . $row_second["question_title"] . "</div>";
-
                 echo "<p>" . htmlspecialchars($row["reply_text"]) . "</p>";
                 echo "<span class='date'>" . htmlspecialchars($row["reply_time"]) . "</span>";
                 echo "</li>";
@@ -374,3 +351,8 @@
 
         // prositeの接続を閉じる
         $answer_conn->close();
+        ?>
+    </div>
+</body>
+
+</html>

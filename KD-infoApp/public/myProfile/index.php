@@ -153,14 +153,15 @@
 
   <div class="profile-container border-2 border-white">
     <!-- <button class="edit-profile-button" onclick="location.href='edit_profile.html'">プロフィール編集</button> -->
-    <img src="https://via.placeholder.com/180" alt="Profile Image" class="profile-image">
-    <div class="profile-name">山田 太郎</div>
+    <img src="../Components/static/image/aikon.png" alt="Profile Image" class="profile-image">
+
+    <div class="profile-name">FukuokaAI</div>
     <div class="profile-details">
-      <p>年齢：22歳</p>
-      <p>クラス：ソフトⅣ</p>
-      <p>趣味：旅行、読書</p>
+      <!-- <p>年齢：22歳</p> -->
+      <!-- <p>クラス：ソフトⅣ</p>
+      <p>趣味：旅行、読書</p> -->
       <p>好きなIT分野：ウェブ開発、人工知能</p>
-      <p>自己紹介：こんにちは、山田太郎です。プログラミングと旅行が大好きで、特にウェブ開発と人工知能に興味があります。</p>
+      <p>自己紹介：こんにちは、学長です。プログラミングと旅行が大好きで、特にウェブ開発と人工知能に興味があります。</p>
     </div>
 
     <?php
