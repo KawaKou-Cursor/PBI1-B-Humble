@@ -32,8 +32,8 @@ session_start();
         }
 
         .replyButton {
-            left: 48%;
-            bottom : 1px;
+            left: 20px;
+            bottom: 1px;
         }
 
         .replyForm {
@@ -42,32 +42,45 @@ session_start();
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: white;
+            width: 50%;
+            height: 50%;
+            background-color: black;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             z-index: 1000;
+            border: 2px solid white;
         }
 
         .replyForm textarea {
             width: 100%;
-            height: 100px;
+            height: calc(100% - 60px);
             resize: none;
             margin-bottom: 10px;
+            background-color: black;
+            color: white;
+            border: 1px solid white;
+            padding: 10px;
         }
 
         .replyForm button {
             padding: 10px 20px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
+            background-color: black;
+            color: white;
+            border: 1px solid white;
             border-radius: 5px;
             cursor: pointer;
+            display: inline-block;
             margin-right: 10px;
         }
 
+        .replyForm button:hover {
+            background-color: white;
+            color: black;
+        }
+
         .cancelButton {
-            background-color: #dc3545;
+            float: right;
         }
 
         .replyList ul {
@@ -153,9 +166,6 @@ renderHeader('question');
             echo "<div class='bg-gray-800 p-5 rounded-md shadow'>";
             echo "<h1 class='text-2xl font-bold text-white mb-2'>" . htmlspecialchars($row["title"]) . "</h1>";
             echo "<p class='text-sm text-gray-500'>投稿日時: " . date('Y-m-d', strtotime($row["created_at"])) . "<p>";
-            // if ($row["average_rating"] !== null) {
-            //     echo "評価: " . number_format($row["average_rating"], 1) . " / 5.0 <br>";
-            // }
             echo "<div class='code-container'>";
             echo "<div class='code-language'>" . htmlspecialchars($row["language"]) . "</div>";
             echo "<div class='code-content'><pre>" . htmlspecialchars($row["code"]) . "</pre></div>";
@@ -182,7 +192,7 @@ renderHeader('question');
                 echo "<h2 class='text-white text-xl mt-4'>返信一覧</h2>";
                 echo "<ul>";
                 while ($reply = $replies->fetch_assoc()) {
-                    echo "<li class='bg-gray-800 text-white p-4 rounded mb-3 shadow'>" . htmlspecialchars($reply["content"]) . " <button class='ml-2 bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded' onclick='deleteReply(" . $reply["id"] . ")'>削除</button></li>";
+                    echo "<li class='bg-gray-800 text-white p-4 rounded mb-3 shadow'>" . htmlspecialchars($reply["content"]) . "</li>";
                 }
                 echo "</ul>";
             } else {
@@ -230,7 +240,7 @@ renderHeader('question');
                 xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                 xhr.onload = function() {
                     if (this.status == 200) {
-                        console.log('Rating submitted successfully');
+                        alert('評価を送信しました。');
                     }
                 }
                 xhr.send("id=<?php echo $id; ?>&rating=" + ratingValue);
