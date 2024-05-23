@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -23,17 +26,14 @@
             padding: 10px 20px;
             background-color: #007bff;
             color: #fff;
-            border: none;
+            border: 1px solid #fff;
             border-radius: 5px;
             cursor: pointer;
         }
 
-        .returnButton {
-            right: 20px;
-        }
-
         .replyButton {
-            left: 20px;
+            left: 48%;
+            bottom : 1px;
         }
 
         .replyForm {
@@ -116,7 +116,12 @@ renderHeader('question');
 ?>
 
 <body>
-    <div class="max-w-5xl mx-auto pt-5 px-4">
+    <!-- 投稿一覧ボタン -->
+    <form action="index.php" class="pl-1 pt-1">
+        <input type="submit" value="投稿一覧へ" class="text-white bg-black border border-white hover:bg-white hover:text-black rounded px-2 py-1">
+    </form>
+
+    <div class="max-w-5xl mx-auto pt-0 px-4">
         <h2 class="text-white text-xl pb-4">投稿詳細</h2>
         <?php
         // データベース接続
@@ -190,9 +195,6 @@ renderHeader('question');
         $conn->close();
         ?>
 
-        <!-- ホームに戻るボタン -->
-        <button class="returnButton" onclick="returnHome()">ホームに戻る</button>
-
         <!-- 返信フォーム -->
         <div class="replyForm" id="replyForm">
             <textarea id="replyContent" placeholder="返信内容を入力してください"></textarea>
@@ -201,7 +203,10 @@ renderHeader('question');
         </div>
 
         <!-- 返信ボタン -->
-        <button class="replyButton" onclick="openReplyForm()">返信する</button>
+        <div>
+            <button class="replyButton bg-black border border-white hover:bg-blue-900 hover:border-white text-white py-2 px-4 rounded mt-4 transition-colors duration-200" onclick="openReplyForm()">返信する</button>
+        </div>
+
     </div>
 
     <!-- JavaScript -->
