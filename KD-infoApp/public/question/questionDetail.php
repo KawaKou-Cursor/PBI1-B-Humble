@@ -110,6 +110,10 @@ renderHeader('question');
 ?>
 
 <body>
+    <!-- 質問一覧に戻るボタン -->
+    <form action="index.php" class="pl-1 pt-1">
+        <input type="submit" value="質問一覧へ" class="bg-black border border-white hover:bg-white hover:text-black rounded px-2 py-1">
+    </form>
     <h2 class="text-white text-xl max-w-5xl mx-auto pt-5 px-4">質問詳細:</h2>
 </body>
 
