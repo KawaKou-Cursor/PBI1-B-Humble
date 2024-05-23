@@ -104,11 +104,13 @@ create table tagcontrol(
 insert into users (user_name, user_pass, email_address, profile_title, profile_text)
 values ('densuke', '$2y$10$ocv0VLCWjSgoXjCHNeWuVueGpq8MI.ETE7Q9YQkmkHXfY7Lf8fXka', 'densuke@kobedenshi.ac.jp', 'NW大好きクラブ名誉会長', 'ソフトⅤコース６組の伝助です。NWの勉強が大好きです。よろしくお願いします！')
 ,('tsubo tea', '$2y$10$zk4LbDbdSmNr6J/FKSkePe3ThIq5dHaH84SGCxYTc3O6TMN3GFG3m', 'tsubo@kobedenshi.ac.jp', '神戸電子が生んだ異端児', 'ソフトⅠコース２組の坪ノ内です。DBが好きです！普段からDBのことしか考えてないです。DB以外のことに興味はありません！')
-,('PonkotsuCoding','$2y$10$dBsdsMwAewDcKwO2J3gtjeaQMw1VWkmJMYJWLojAGTiO9pLLSjtAS' ,'ponpon@kobedenshi.ac.jp', 'プログラミングは日課！', 'ソフトⅧコース１組の碰骨と申します。毎日プログラミングをすることが日課で、今は就職先で使うCOBOLとBrainfuckを勉強中です。' );
+,('PonkotsuCoding','$2y$10$dBsdsMwAewDcKwO2J3gtjeaQMw1VWkmJMYJWLojAGTiO9pLLSjtAS' ,'ponpon@kobedenshi.ac.jp', 'プログラミングは日課！', 'ソフトⅧコース１組の碰骨と申します。毎日プログラミングをすることが日課で、今は就職先で使うCOBOLとBrainfuckを勉強中です。' )
+,('fukuokaAI','$2y$10$GLCoFisRGFb3B77WTOpAnOwONQCXbQTr7UKMztJFhKZE/SzHo4fia' ,'huku@kobedenshi.ac.jp', '', '好きなIT分野：ウェブ開発、人工知能 自己紹介：こんにちは、学長です。プログラミングと旅行が大好きで、特にウェブ開発と人工知能に興味があります。' );
 
 # densukeのハッシュ化前パスワード→Denden1234
 # tsubo teaのハッシュ化前パスワード→teaOcha1234
 # PonkotsuCodingのハッシュ化前パスワード→Ponkotsu1234
+# fukuokaAIのハッシュ化前パスワード→fukufuku
 
 # 投稿テーブルの情報は金城DBに保存されています。川人DBのuser_idを金城DBのpostsに保存するようにする。
 
