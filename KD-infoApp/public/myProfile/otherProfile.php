@@ -172,7 +172,7 @@ renderHeader('question');
 <body>
 
     <div class="profile-container border-2 border-white">
-        <img src="../Components/static/image/aikon.png" alt="Profile Image" class="profile-image">
+        <img src="../Components/static/image/syoki.png" alt="Profile Image" class="profile-image">
 
         <?php
         // 金城DB（projectDB）のデータベース接続情報
