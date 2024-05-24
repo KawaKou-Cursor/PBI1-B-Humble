@@ -41,6 +41,7 @@ session_start();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- タブのアイコン設定(相対パスは非表示になるバグがあるので絶対パスで指定中) -->
     <link rel="icon" type="image/png" href="\PBI1-B-Humble\KD-infoApp\public\Components\static\AppIcon\KD-info2.png">
+    <link rel="stylesheet" href="../Components/static/background.css">
     <style>
         body {
             background-color: #111;
@@ -105,12 +106,10 @@ session_start();
         .averageRating {
             color: red;
             font-weight: bold;
-
         }
 
         .sortButton.desc:after {
             content: "▲";
-
         }
 
         .sortButton.asc:after {
@@ -129,7 +128,7 @@ session_start();
     </style>
 </head>
 
-<body>
+<body class="custom-gradient2">
     <!-- ヘッダーのインポート -->
     <?php
     include '../Components/src/renderHeader.php';

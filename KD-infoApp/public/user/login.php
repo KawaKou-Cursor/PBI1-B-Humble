@@ -40,6 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" type="image/png" href="\PBI1-B-Humble\KD-infoApp\public\Components\static\AppIcon\KD-info2.png">
+    <link rel="stylesheet" href="../Components/static/background.css">
     <style>
         body { background-color: #111; }
         .modal-content { background-color: #111; color: #fff; border: 1px solid #444; }
@@ -48,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .toggle-password { cursor: pointer; }
     </style>
 </head>
-<body class="flex justify-center items-center h-screen">
+<body class="custom-gradient flex justify-center items-center h-screen">
     <div class="modal-content p-8 rounded-lg w-96">
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" class="space-y-4">
             <h1 class="text-lg font-bold text-center mb-4">Login</h1>

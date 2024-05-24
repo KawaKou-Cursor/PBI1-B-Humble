@@ -7,17 +7,19 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" type="image/png" href="\PBI1-B-Humble\KD-infoApp\public\Components\static\AppIcon\KD-info2.png">
+    <link rel="stylesheet" href="../Components/static/background.css">
+
     <style>
         body { background-color: #111; }
     </style>
 </head>
-<body>
+<body class="custom-gradient2">
     <?php
     session_start();
 
     include '../Components/src/renderHeader.php';
     renderHeader('question');
-    
+
     // 通知プロセス関連のなんか
     // $loginSuccess = isset($_SESSION['login_success']) ? $_SESSION['login_success'] : false;
     // if ($loginSuccess) {
