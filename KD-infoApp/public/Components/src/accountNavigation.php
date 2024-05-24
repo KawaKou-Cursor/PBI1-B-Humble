@@ -1,16 +1,21 @@
 <div class="relative text-white">
     <!-- アカウントボタン -->
-    <!-- <button id="account-btn" class="fas fa-user"> -->
-    <!-- <button id="account-btn" class="fas fa-user-graduate"> -->
-    <!-- <button id="account-btn" class="fas fa-user-tie"> -->
-    <button id="account-btn" class="fas fa-user-circle pl-2 pr-2" style="color: white; font-size: 24px;">
-    </button>
+    <!-- PHPでユーザー名のチェックを行い、ユーザー名があればアイコンを画像に置き換える -->
+    <?php if (isset($_SESSION['session_user_name'])) : ?>
+        <img id="account-btn" src="../Components/static/image/aikon3.png" alt="User Icon" class="pl-2 pr-2 px-2 py-2" style="color: white; font-size: 24px; width: 40px; height: 40px; border: 2px solid white; border-radius: 80%; object-fit: cover; cursor: pointer;">
+    <?php else : ?>
+        <button id="account-btn" class="fas fa-user-circle pl-2 pr-2" style="color: white; font-size: 24px;">
+
+        </button>
+    <?php endif; ?>
+
     <!-- アカウントメニュー -->
     <div id="account-menu" class="hidden absolute right-0 w-48 border border-gray-400 rounded-lg text-left" style="background-color: #111;">
         <!-- ユーザー名表示。セッションにユーザー名があれば表示、なければGuest表示 -->
         <?php $username = isset($_SESSION['session_user_name']) ? $_SESSION['session_user_name'] : 'Guest'; ?>
         <div class="p-2 text-left"><?php echo $username; ?></div>
         <hr class="border-gray-400 mx-auto" style="width: 180px;">
+
         <?php if ($username !== 'Guest') : ?>
             <!-- ログイン時のメニュー項目 -->
             <a href="../myProfile/index.php" class="block p-0.5 pl-2 text-lg text-left hover hover:bg-gray-900">My Profile</a>
@@ -26,7 +31,7 @@
     </div>
 </div>
 
-<!-- ログアウト用フォーム -->
+<!-- ログアウト用フォーム。ログアウト処理に使用 -->
 <form id="logout-form" action="../user/logout.php" method="post" class="hidden">
     <input type="hidden" name="logout" value="true">
 </form>
@@ -74,7 +79,6 @@
             document.getElementById('logout-form').submit();
             // アラートでログアウト成功を通知
             alert("ログアウトしました");
-
         });
     <?php endif; ?>
 </script>
