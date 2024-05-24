@@ -77,6 +77,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- タブのアイコン設定(相対パスは非表示になるバグがあるので絶対パスで指定中) -->
     <link rel="icon" type="image/png" href="\PBI1-B-Humble\KD-infoApp\public\Components\static\AppIcon\KD-info2.png">
+    <link rel="stylesheet" href="../Components/static/background.css">
+
     <style>
         body {
             background-color: #111;
@@ -90,7 +92,7 @@ include '../Components/src/renderHeader.php';
 renderHeader('question');
 ?>
 
-<body class="bg-black text-white">
+<body class="custom-gradient bg-black text-white">
     <!-- 投稿一覧ボタン -->
     <form action="index.php" class="pl-1 pt-1">
         <input type="submit" value="質問一覧へ" class="bg-black border border-white hover:bg-white hover:text-black rounded px-2 py-1">

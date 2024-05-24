@@ -9,6 +9,7 @@
   <!-- Font Awesome CSSを追加 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="icon" type="image/png" href="\PBI1-B-Humble\KD-infoApp\public\Components\static\AppIcon\KD-info2.png">
+  <link rel="stylesheet" href="../Components/static/background.css">
 
   <style>
     body {
@@ -17,7 +18,7 @@
   </style>
 </head>
 
-<body>
+<body class="custom-gradient ">
   <?php
   session_start(); // セッションを開始または継続
   include '..\Components\src\renderHeader.php';

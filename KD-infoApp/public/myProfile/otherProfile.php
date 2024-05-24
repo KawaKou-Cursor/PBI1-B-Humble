@@ -20,6 +20,7 @@ renderHeader('question');
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- タブのアイコン設定(相対パスは非表示になるバグがあるので絶対パスで指定中) -->
     <link rel="icon" type="image/png" href="\PBI1-B-Humble\KD-infoApp\public\Components\static\AppIcon\KD-info2.png">
+    <link rel="stylesheet" href="../Components/static/background.css">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -169,7 +170,7 @@ renderHeader('question');
     </style>
 </head>
 
-<body>
+<body class="custom-gradient2">
 
     <div class="profile-container border-2 border-white">
         <img src="../Components/static/image/syoki.png" alt="Profile Image" class="profile-image">
