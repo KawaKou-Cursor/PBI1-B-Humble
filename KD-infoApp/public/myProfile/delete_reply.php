@@ -15,25 +15,18 @@ if ($conn->connect_error) {
 
 // URLパラメータからquestion_idを取得
 if (isset($_GET['id'])) {
-    $question_id = $_GET['id'];
+    $reply_id = $_GET['id'];
 
     // トランザクションを開始
     $conn->begin_transaction();
 
     try {
-        // 関連する返信を削除するSQLクエリ
-        $sql_delete_replies = "DELETE FROM replies WHERE question_id = ?";
+        // 返信を削除するSQLクエリ
+        $sql_delete_replies = "DELETE FROM replies WHERE reply_id = ?";
         $stmt_replies = $conn->prepare($sql_delete_replies);
-        $stmt_replies->bind_param("i", $question_id);
+        $stmt_replies->bind_param("i", $reply_id);
         $stmt_replies->execute();
         $stmt_replies->close();
-
-        // 質問を削除するSQLクエリ
-        $sql_delete_question = "DELETE FROM questions WHERE question_id = ?";
-        $stmt_question = $conn->prepare($sql_delete_question);
-        $stmt_question->bind_param("i", $question_id);
-        $stmt_question->execute();
-        $stmt_question->close();
 
         // コミット
         $conn->commit();

@@ -41,18 +41,33 @@
       border: 2px solid #000080;
     }
 
+    .profile-name-container {
+      text-align: center;
+      /* 名前を中央揃えにする親要素 */
+    }
+
     .profile-name {
-      font-size: 28px;
+      font-size: 30px;
+      font-weight: bold;
+      color: #fff;
+      background-color: #2c2c2c;
+      padding: 10px;
+      border-radius: 10px;
+      display: inline-block;
+    }
+
+    .profile-title {
+      font-size: 20px;
       font-weight: bold;
       text-align: center;
       margin-bottom: 15px;
-      color: #fff;
     }
 
-    .profile-details p {
+    .profile-details {
       font-size: 18px;
       margin-bottom: 10px;
       line-height: 1.6;
+      text-align: center;
     }
 
     .section {
@@ -103,9 +118,10 @@
       color: #4CAF50;
     }
 
-    .list-container a.delete-link:hover {
-      color: #ff0000;
-      /* 削除リンクのホバーカラーを赤色に設定 */
+    .data-title {
+      font-size: 16px;
+      color: #4169e1;
+      margin-bottom: 10px;
     }
 
     .date,
@@ -149,51 +165,90 @@
   session_start(); // セッション開始
   include '..\Components\src\renderHeader.php';
   renderHeader('question');
+  // 投稿一覧のデータベース接続情報
+  $post_servername = "localhost";
+  $post_username = "username";
+  $post_password = "password";
+  $post_dbname = "projectDB";
+  // 回答一覧のデータベース接続情報
+  $answer_servername = "localhost";
+  $answer_username = "kobe";
+  $answer_password = "denshi";
+  $answer_dbname = "prosite";
+  // session_user_nameがセットされていれば取得
+  if (isset($_SESSION['session_user_name'])) {
+    $user_name = $_SESSION['session_user_name'];
+  }
+
+  // prositeに接続
+  $answer_conn = new mysqli($answer_servername, $answer_username, $answer_password, $answer_dbname);
+  // 接続をチェック
+  if ($answer_conn->connect_error) {
+    die("データベースへの接続失敗: " . $answer_conn->connect_error);
+  }
+
+  // ユーザー名からユーザー情報を取得
+  $sql = 'SELECT * FROM users WHERE user_name = ?'; // SQL文を変数に代入
+  $stmt = $answer_conn->prepare($sql); // SQL文実行する前にprepareメソッドを実行
+  $stmt->bind_param('s', $user_name); // プレースホルダーに値をバインド
+  $stmt->execute(); // クエリを実行
+  $result = $stmt->get_result(); // 結果を取得
+  if ($result === false) {
+    die("結果の取得に失敗しました: " . $stmt->error);
+  }
+
+  $row = $result->fetch_assoc(); // 結果を連想配列で取得
+  if ($row) {
+    $user_name = $row['user_name'];  // ユーザー名があれば取得
+    $user_id = $row['user_id'];  // ユーザーのuser_idがあれば取得
+    $profile_title = $row['profile_title'];   // ユーザーのプロフィールタイトルがあれば取得
+    $profile_text = $row['profile_text'];   // ユーザーのプロフィールテキストがあれば取得
+  } else {
+    echo 'ユーザーが見つかりませんでした';
+  }
   ?>
 
   <div class="profile-container border-2 border-white">
     <!-- <button class="edit-profile-button" onclick="location.href='edit_profile.html'">プロフィール編集</button> -->
     <img src="../Components/static/image/aikon.png" alt="Profile Image" class="profile-image">
-
-    <div class="profile-name">FukuokaAI</div>
-    <div class="profile-details">
-      <!-- <p>年齢：22歳</p> -->
-      <!-- <p>クラス：ソフトⅣ</p>
-      <p>趣味：旅行、読書</p> -->
-      <p>好きなIT分野：ウェブ開発、人工知能</p>
-      <p>自己紹介：こんにちは、学長です。プログラミングと旅行が大好きで、特にウェブ開発と人工知能に興味があります。</p>
-    </div>
-
     <?php
-    // 投稿一覧のデータベース接続情報
-    $post_servername = "localhost";
-    $post_username = "username";
-    $post_password = "password";
-    $post_dbname = "projectDB";
+    echo '<div class="profile-name-container">'; // 名前を中央揃えにする親要素
+    echo '<div class="profile-name">';
+    echo $user_name;
+    echo '</div>';
+    echo '</div>';
 
-    // 回答一覧のデータベース接続情報
-    $answer_servername = "localhost";
-    $answer_username = "kobe";
-    $answer_password = "denshi";
-    $answer_dbname = "prosite";
+    echo '<div class="profile-title">';
+    echo $profile_title;
+    echo '</div>';
+    echo '<div class="profile-details">';
+    echo $profile_text;
+    echo '</div>';
 
-    // 投稿一覧のデータベースに接続
+    echo "<div class='section'>";
+    echo "<div class='section-title'>投稿作品</div>";
+    echo "<div class='section-text'>あなたが投稿した作品の投稿一覧です。</div>";
+    echo "<div class='list-container'>";
+    echo "<ul class='works-list'>";
+
+    $answer_conn->close(); // 接続を閉じる
+
+    // projectDBに接続
     $post_conn = new mysqli($post_servername, $post_username, $post_password, $post_dbname);
-
     // 接続をチェック
     if ($post_conn->connect_error) {
       die("データベースへの接続失敗: " . $post_conn->connect_error);
     }
 
-    echo "<div class='section'>";
-    echo "<div class='section-title'>作品投稿一覧</div>";
-    echo "<div class='section-text'>自分が作成した作品の投稿一覧です。</div>";
-    echo "<div class='list-container'>";
-    echo "<ul class='works-list'>";
-
     // projectDBからデータを取得
-    $sql = "SELECT id, title, created_at FROM projects";
-    $result = $post_conn->query($sql);
+    $sql = "SELECT * FROM projects WHERE user_id = ?";
+    $stmt = $post_conn->prepare($sql); // SQL文実行する前にprepareメソッドを実行
+    $stmt->bind_param('s', $user_id); // プレースホルダーに値をバインド
+    $stmt->execute(); // クエリを実行
+    $result = $stmt->get_result(); // 結果を取得
+    if ($result === false) {
+      die("結果の取得に失敗しました: " . $stmt->error);
+    }
 
     if ($result->num_rows > 0) {
       while ($row = $result->fetch_assoc()) {
@@ -211,27 +266,32 @@
     echo "</div>";
     echo "</div>";
 
-    // 投稿一覧の接続を閉じる
+    // projectDBの接続を閉じる
     $post_conn->close();
 
-    // 回答一覧のデータベースに接続
+    // prositeに再接続
     $answer_conn = new mysqli($answer_servername, $answer_username, $answer_password, $answer_dbname);
-
     // 接続をチェック
     if ($answer_conn->connect_error) {
       die("データベースへの接続失敗: " . $answer_conn->connect_error);
     }
 
     echo "<div class='section'>";
-    echo "<div class='section-title'>いいねがもらえた質問</div>";
-    echo "<div class='section-text'>他のユーザーから「いいね」をもらった質問や回答の一覧です。</div>";
+    echo "<div class='section-title'>質問</div>";
+    echo "<div class='section-text'>あなたの質問一覧です。</div>";
     echo "<div class='list-container'>";
     echo "<ul class='likes-list'>";
 
-    // questionsテーブルからデータを取得（question_goodが1以上のもの）
-    $sql = "SELECT question_id, question_title, question_time, question_good FROM questions WHERE question_good >= 1";
 
-    $result = $answer_conn->query($sql);
+    // 他のユーザー名からユーザー情報を取得
+    $sql = 'SELECT * FROM questions WHERE user_id = ?'; // SQL文を変数に代入
+    $stmt = $answer_conn->prepare($sql); // SQL文実行する前にprepareメソッドを実行
+    $stmt->bind_param('s', $user_id); // プレースホルダーに値をバインド
+    $stmt->execute(); // クエリを実行
+    $result = $stmt->get_result(); // 結果を取得
+    if ($result === false) {
+      die("結果の取得に失敗しました: " . $stmt->error);
+    }
 
     if ($result->num_rows > 0) {
       while ($row = $result->fetch_assoc()) {
@@ -251,19 +311,30 @@
     echo "</div>";
 
     echo "<div class='section'>";
-    echo "<div class='section-title'>回答一覧</div>";
-    echo "<div class='section-text'>質問に対する回答の一覧です。</div>";
+    echo "<div class='section-title'>回答</div>";
+    echo "<div class='section-text'>あなたの回答一覧です。</div>";
     echo "<div class='list-container'>";
     echo "<ul class='replies-list'>";
 
     // repliesテーブルからデータを取得
-    $sql = "SELECT reply_id, reply_text, reply_time FROM replies";
+    $sql = "SELECT * FROM replies WHERE user_id = ?"; // SQL文を変数に代入
+    $stmt = $answer_conn->prepare($sql); // SQL文実行する前にprepareメソッドを実行
+    $stmt->bind_param('s', $user_id); // プレースホルダーに値をバインド
+    $stmt->execute(); // クエリを実行
+    $result = $stmt->get_result(); // 結果を取得
 
-    $result = $answer_conn->query($sql);
+    // 質問に対する回答元の質問タイトルを取得するためのSQL文
+    $sql_second = "SELECT question_title FROM questions WHERE question_id = ? ";
+    $stmt = $answer_conn->prepare($sql_second); // SQL文実行する前にprepareメソッドを実行
 
     if ($result->num_rows > 0) {
       while ($row = $result->fetch_assoc()) {
+        $stmt->bind_param('s', $row["question_id"]); // プレースホルダーに値をバインド
+        $stmt->execute(); // クエリを実行
+        $result_second = $stmt->get_result(); // 結果を取得
+        $row_second = $result_second->fetch_assoc();
         echo "<li>";
+        echo "<div class='data-title'>回答元：" . $row_second["question_title"] . "</div>";
         echo "<p>" . htmlspecialchars($row["reply_text"]) . "</p>";
         echo "<span class='date'>" . htmlspecialchars($row["reply_time"]) . "</span>";
         echo "<a href='delete_reply.php?id=" . $row['reply_id'] . "' class='delete-link'' onclick=\"return confirm('本当にこの回答を削除しますか？');\">削除</a>";
@@ -276,3 +347,11 @@
     echo "</ul>";
     echo "</div>";
     echo "</div>";
+
+    // prositeの接続を閉じる
+    $answer_conn->close();
+    ?>
+  </div>
+</body>
+
+</html>
