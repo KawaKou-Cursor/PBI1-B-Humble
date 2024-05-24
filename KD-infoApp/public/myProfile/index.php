@@ -33,13 +33,13 @@
     }
 
     .profile-image {
-      width: 180px;
-      height: 180px;
+      width: 250px;
+      height: 250px;
       border-radius: 50%;
       object-fit: cover;
       margin: 0 auto 20px;
       display: block;
-      border: 2px solid #000080;
+
     }
 
     .profile-name-container {
@@ -211,7 +211,7 @@
 
   <div class="profile-container border-2 border-white">
     <!-- <button class="edit-profile-button" onclick="location.href='edit_profile.html'">プロフィール編集</button> -->
-    <img src="../Components/static/image/aikon.png" alt="Profile Image" class="profile-image">
+    <img src="../Components/static/image/newaikon.png" alt="Profile Image" class="profile-image">
     <?php
     echo '<div class="profile-name-container">'; // 名前を中央揃えにする親要素
     echo '<div class="profile-name">';

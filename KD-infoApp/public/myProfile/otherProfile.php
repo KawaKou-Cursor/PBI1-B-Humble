@@ -42,13 +42,13 @@ renderHeader('question');
         }
 
         .profile-image {
-            width: 180px;
-            height: 180px;
+            width: 170px;
+            height: 170px;
             border-radius: 50%;
             object-fit: cover;
             margin: 0 auto 20px;
             display: block;
-            border: 2px solid #000080;
+
         }
 
         .profile-name-container {

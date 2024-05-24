@@ -2,7 +2,8 @@
     <!-- アカウントボタン -->
     <!-- PHPでユーザー名のチェックを行い、ユーザー名があればアイコンを画像に置き換える -->
     <?php if (isset($_SESSION['session_user_name'])) : ?>
-        <img id="account-btn" src="../Components/static/image/aikon3.png" alt="User Icon" class="pl-2 pr-2 px-2 py-2" style="color: white; font-size: 24px; width: 40px; height: 40px; border: 2px solid white; border-radius: 80%; object-fit: cover; cursor: pointer;">
+        <!-- <img id="account-btn" src="../Components/static/image/aikon3.png" alt="User Icon" class="pl-2 pr-2 px-2 py-2" style="color: white; font-size: 24px; width: 30px; height: auto; max-height: 30px; border: 2px solid white; border-radius: 50%; object-fit: cover; cursor: pointer;"> -->
+        <img id="account-btn" src="../Components/static/image/newaikon.png" alt="User Icon" class="" style=" width: 36px; height: 36px;">
     <?php else : ?>
         <button id="account-btn" class="fas fa-user-circle pl-2 pr-2" style="color: white; font-size: 24px;">
 
