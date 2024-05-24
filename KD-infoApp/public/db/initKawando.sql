@@ -72,30 +72,7 @@ create table replies(
     -- 参照先をupdate/deleteした際はエラーを返す
     ON DELETE RESTRICT ON UPDATE RESTRICT
 );
-# テーブル「tag」を作成
-create table tag(
-    tag_id int auto_increment primary key,
-    tag_name varchar(100) not null
-);
-# テーブル「tagcontrol」を作成
-create table tagcontrol(
-    tagcontrol_id int auto_increment primary key,
-    question_id int,
-    post_id int,
-    tag_id int NOT NULL,
-    -- 外部キー制約 question_id
-    FOREIGN KEY (question_id) REFERENCES questions (question_id)
-    -- 参照先をupdate/deleteした際はエラーを返す
-    ON DELETE RESTRICT ON UPDATE RESTRICT,
-    -- 外部キー制約 post_id
-    FOREIGN KEY (post_id) REFERENCES posts (post_id)
-    -- 参照先をupdate/deleteした際はエラーを返す
-    ON DELETE RESTRICT ON UPDATE RESTRICT,
-    -- 外部キー制約 tag_id
-    FOREIGN KEY (tag_id) REFERENCES tag (tag_id)
-    -- 参照先をupdate/deleteした際はエラーを返す
-    ON DELETE RESTRICT ON UPDATE RESTRICT
-);
+
 
 
 # kawandoDB demo deta
@@ -105,7 +82,7 @@ insert into users (user_name, user_pass, email_address, profile_title, profile_t
 values ('densuke', '$2y$10$ocv0VLCWjSgoXjCHNeWuVueGpq8MI.ETE7Q9YQkmkHXfY7Lf8fXka', 'densuke@kobedenshi.ac.jp', 'NW大好きクラブ名誉会長', 'ソフトⅤコース６組の伝助です。NWの勉強が大好きです。よろしくお願いします！')
 ,('tsubo tea', '$2y$10$zk4LbDbdSmNr6J/FKSkePe3ThIq5dHaH84SGCxYTc3O6TMN3GFG3m', 'tsubo@kobedenshi.ac.jp', '神戸電子が生んだ異端児', 'ソフトⅠコース２組の坪ノ内です。DBが好きです！普段からDBのことしか考えてないです。DB以外のことに興味はありません！')
 ,('PonkotsuCoding','$2y$10$dBsdsMwAewDcKwO2J3gtjeaQMw1VWkmJMYJWLojAGTiO9pLLSjtAS' ,'ponpon@kobedenshi.ac.jp', 'プログラミングは日課！', 'ソフトⅧコース１組の碰骨と申します。毎日プログラミングをすることが日課で、今は就職先で使うCOBOLとBrainfuckを勉強中です。' )
-,('fukuokaAI','$2y$10$GLCoFisRGFb3B77WTOpAnOwONQCXbQTr7UKMztJFhKZE/SzHo4fia' ,'huku@kobedenshi.ac.jp', '', '好きなIT分野：ウェブ開発、人工知能 自己紹介：こんにちは、学長です。プログラミングと旅行が大好きで、特にウェブ開発と人工知能に興味があります。' );
+,('fukuokaAI','$2y$10$GLCoFisRGFb3B77WTOpAnOwONQCXbQTr7UKMztJFhKZE/SzHo4fia' ,'huku@kobedenshi.ac.jp', 'Web開発と人工知能を愛してます！', 'みなさんこんにちは！プログラミングと旅行が大好きで、特にWeb開発と人工知能に興味があります。寝る間を惜しんで開発しているときやディープラーニングを学んでいるときに生を実感します。ぜひ私とともに最高の作品を作りましょう！' );
 
 # densukeのハッシュ化前パスワード→Denden1234
 # tsubo teaのハッシュ化前パスワード→teaOcha1234
@@ -162,13 +139,3 @@ WHERE: WHERE句を使用して、データをフィルタリングし、必要�
 すべてのコンフリクトが解消され、修正したファイルがステージングされると、git commit コマンドを使ってマージを完了させます。既にマージ用のメッセージが用意されているので、そのままコミットできます。
 以上がGitのマージコンフリクトを解消するための基本的な手順と注意点です。
 慣れるまでは少し手間取るかもしれませんが、落ち着いて一つずつ対処すれば大丈夫です！', '8');
-
-# タグテーブルに仮のデータを追加
-insert into tag(tag_name) values('Java'), ('Python'), ('初心者'), ('非同期'), ('DB'), ('JavaScript'), ('SQL')
-, ('GitHub'), ('PHP'), ('C'), ('C++'), ('C#'), ('HTML'), ('Ruby'), ('AWS'), ('TypeScript'), ('React')
-, ('Flutter'), ('Next.js'), ('Docker'), ('Golang'), ('Rails'), ('Rust'), ('iOS'), ('Linux'), ('Swift')
-, ('Android'), ('Unity'), ('Git'), ('VS Code'), ('Node.js'), ('CSS'), ('Dart'), ('Azure'), ('Laravel');
-
-# 質問へのタグ付け
-insert into tagcontrol(question_id, tag_id)
-values ('1', '2'), ('1', '3'), ('2', '6'), ('2', '4'), ('3', '5'), ('3', '7'), ('4', '8'), ('5','16');
