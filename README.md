@@ -50,8 +50,7 @@
 
 1. XAMPPをインストールします。
 2. GitHubからリポジトリを「xampp/htdocs/」にクローンします。
-3. XAMPPを起動し、ApacheとMySQLを起動します。
-4. クローン元のデータベースをXAMPPのMySQLに反映させます。「xampp\htdocs\PBI1-B-Humble\KD-infoApp\public\db\initKawando.sql」と「xampp\htdocs\PBI1-B-Humble\KD-infoApp\public\db\initKinjo.sql」
+3. クローン元のデータベースをXAMPPのMySQLに反映させます。「xampp\htdocs\PBI1-B-Humble\KD-infoApp\public\db\initKawando.sql」と「xampp\htdocs\PBI1-B-Humble\KD-infoApp\public\db\initKinjo.sql」
 
 ## 起動方法
 
